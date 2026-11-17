@@ -22,9 +22,11 @@ When the operator encounters a machine breakdown:
 1. The operator clicks the **"Scan / AI Diagnostic"** button inside the Power App.
 2. The Power Fx formula launches the Hugging Face Space web interface:
    ```powerfx
-   Launch("https://huggingface.co/spaces/<YOUR_ORG>/<YOUR_SPACE_NAME>")
+   Launch("https://huggingface.co/spaces/takwahafyen/Lessons_Learned_Smart_App")
    ```
 3. The operator captures the error code with their device camera, reviews the diagnosis, and copies the solution back to the maintenance log.
+
+🎥 **Watch this flow in action:** [YouTube Video Demonstration](https://www.youtube.com/watch?v=2GDLJ0Q30o0)
 
 ---
 

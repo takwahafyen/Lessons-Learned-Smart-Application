@@ -1,12 +1,20 @@
 # 🏭 Lessons Learned Smart Application: End-to-End Industrial Error Diagnostic
 
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces)
+[![Live Demo on Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces%20Live%20Demo-yellow)](https://huggingface.co/spaces/takwahafyen/Lessons_Learned_Smart_App)
+[![Video Demonstration](https://img.shields.io/badge/YouTube-Video%20Demo-red?logo=youtube)](https://www.youtube.com/watch?v=2GDLJ0Q30o0)
 [![Microsoft Power Apps](https://img.shields.io/badge/Microsoft-Power%20Apps-742774?logo=microsoftpowerapps&logoColor=white)](https://powerapps.microsoft.com/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-red.svg)](https://opencv.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-> An enterprise-ready, hybrid Industry 4.0 solution combining **Microsoft Power Apps** for shop-floor operators with an **AI/Computer Vision microservice** on Hugging Face to automatically detect machine error codes and deliver instant standardized corrective actions (*Lessons Learned*).
+> A production-oriented Industry 4.0 solution combining **Microsoft Power Apps** for shop-floor operators with a **Computer Vision & NLP microservice** hosted on Hugging Face Spaces. It automatically reads error codes from industrial machine screens and delivers immediate diagnostic root causes and standard recovery procedures (*Lessons Learned*).
+
+---
+
+## 🔗 Quick Links & Live Demonstrations
+
+* 🎥 **YouTube Video Walkthrough:** [Watch the Full Demonstration](https://www.youtube.com/watch?v=2GDLJ0Q30o0)
+* 🤗 **Live Interactive ML App:** [Hugging Face Space (Lessons_Learned_Smart_App)](https://huggingface.co/spaces/takwahafyen/Lessons_Learned_Smart_App)
+* 💻 **GitHub Source Code:** [takwahafyen/Lessons-Learned-Smart-Application](https://github.com/takwahafyen/Lessons-Learned-Smart-Application)
 
 ---
 
@@ -101,10 +109,19 @@ Machine screens in factory environments suffer from glare and varying focal dist
 * **Morphological & Bilateral Preprocessing:** Removes high-frequency camera noise while preserving sharp font edges.
 * **Fallback Cascade:** Evaluates Adaptive Gaussian Thresholding and Otsu Binarization in parallel, selecting the token that satisfies the industrial regex with the highest confidence score (`conf > 25.0`).
 
-### 2. Fast NLP Classification (`src/model_predictor.py`)
-* Normalizes parsed strings to alphanumeric uppercase tokens (e.g., `E - 104` $\rightarrow$ `E104`).
-* Transforms tokens via vectorized feature representations.
-* Predicts standardized **Root Cause** and **Corrective Action** with sub-20ms inference latency.
+### 2. Machine Learning Model Architecture & Specifications (`src/model_predictor.py`)
+
+* **Learning Paradigm:** **Supervised Machine Learning (NLP / Text Classification)**
+* **Model Type & Family:** Multi-class classification using an n-gram feature vectorizer coupled with a supervised scikit-learn classifier (e.g., Logistic Regression / Support Vector Classifier / Naive Bayes).
+* **Feature Extraction Pipeline:**
+  * **Input:** Raw detected error code (e.g., `"E-1024"` $\rightarrow$ normalized to `"E1024"`).
+  * **Vectorization:** `scikit-learn` Vectorizer (`CountVectorizer` / `TfidfVectorizer`) transforming alphanumeric character/sub-word tokens into sparse numerical vector embeddings.
+* **Target Prediction (Multi-Attribute Mapping):**
+  * The classifier maps the sparse token representation to an indexed knowledge base entry.
+  * The decoded output produces a structured tuple:
+    1. **Root Cause (`Cause Racine`)**: Underlying mechanical, electrical, or software fault origin.
+    2. **Corrective Action (`Solution / Procédure Standard`)**: Verified resolution procedure from factory *Lessons Learned* records.
+* **Inference Latency:** Ultra-low latency (< 15 ms per prediction), making it suited for edge factory deployment.
 
 ---
 
