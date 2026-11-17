@@ -1,0 +1,47 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  Cmp_loader:
+    DefinitionType: CanvasComponent
+    Properties:
+      Fill: =RGBA(0, 0, 0, 0.22)
+      Height: =Max(App.Height, App.MinScreenHeight)
+      Width: =Max(App.Width, App.MinScreenWidth)
+    Children:
+      - LoaderContainer:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.ExtraBold
+            Fill: =RGBA(44, 44, 44, 1)
+            Height: =Parent.Height/3
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =400
+            X: =(Parent.Width - Self.Width)/2
+            Y: =(Parent.Height - Self.Height)/2
+          Children:
+            - ImgLoader:
+                Control: Image@2.2.3
+                Properties:
+                  Height: =Parent.Height
+                  Image: ='19K3XY4z0G'
+                  Width: =Parent.Width
+            - Label4:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                  FontWeight: =FontWeight.Bold
+                  Text: ="Please Wait"
+                  Width: =Parent.Width
+                  Y: =150

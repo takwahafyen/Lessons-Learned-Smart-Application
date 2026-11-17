@@ -1,0 +1,36 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  info2:
+    Children:
+      - Image15:
+          Control: Image@2.2.3
+          Properties:
+            Height: =Parent.Height
+            Image: =info1
+            Width: =Parent.Width
+      - ConCreateBookingNextBtn_14:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 63, 76, 1)
+            DisabledBorderColor: =Self.Fill
+            DisabledFill: =Self.Fill
+            Fill: =RGBA(180, 214, 250, 1)
+            Font: =Font.Georgia
+            Height: =78
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =Self.Fill
+            OnSelect: =Navigate(Home1)
+            PressedFill: =Self.Fill
+            Size: =If(IsMobileLayout,10, 15)
+            Text: ="Home"
+            Width: =180
+            X: =48
+            Y: =612

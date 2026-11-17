@@ -1,0 +1,68 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  info11:
+    Properties:
+      BackgroundImage: =info3
+    Children:
+      - Video2:
+          Control: Video@2.4.2
+          Properties:
+            AutoStart: =true
+            Height: =Parent.Height
+            Loop: =true
+            Media: ='368459756136251395'
+            ShowControls: =false
+            Visible: =false
+            Width: =Parent.Width
+      - ConCreateBookingNextBtn_18:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 63, 76, 1)
+            DisabledFill: =Self.Fill
+            Fill: =RGBA(180, 214, 250, 1)
+            Font: =Font.Georgia
+            Height: =65
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =Self.Fill
+            OnSelect: =Navigate(Home1)
+            PressedFill: =Self.Fill
+            Size: =If(IsMobileLayout,10, 15)
+            Text: ="Back"
+            Width: =150
+            X: =1204
+            Y: =658
+      - Cmp_SideNav_Mobile_2:
+          Control: CanvasComponent
+          ComponentName: Cmp_SideNav_Mobile
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            CurrentIndicatorColor: =RGBA(252, 194, 27, 1)
+            Default: ="Draxlmaier Group"
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(12, 59, 94, 1)
+            Height: =82
+            HoverFill: =RGBA(0, 0, 0, 1)
+            SelectedFill: =RGBA(13, 50, 61, 1)
+            SidebarItems: |+
+              =Filter(
+                  Table(
+                      {Value: "Home", Icon: mm, IconSelected: mm, Screen: Home1, RequiresAdmin: false},
+                      {Value: "Projects", Icon: projects, IconSelected: ImgHistorySelected, Screen: AI, RequiresAdmin: false},
+                      {Value: "LL by risk analysis", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Booking, RequiresAdmin: false},
+                      {Value: "Add LL by risk analysis", Icon: ImgCarDisabled, IconSelected: ImgCarSelected, Screen: Create, RequiresAdmin: true},
+                      {Value: "Processes", Icon: img1, IconSelected: ImgCreateSelected, Screen: proo, RequiresAdmin: false},
+                      {Value: "Fault catalog", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Bookingp, RequiresAdmin: false},
+                      {Value: "Add Lesson by process", Icon: addlesson, IconSelected: ImgCarSelected, Screen: Createp, RequiresAdmin: true}
+                  ),
+                  // La condition de filtrage :
+                  !RequiresAdmin || (RequiresAdmin && !IsBlank(CurrentUser) && IsAdminUser)
+              )
+            Width: =Max(App.Width, App.MinScreenWidth)

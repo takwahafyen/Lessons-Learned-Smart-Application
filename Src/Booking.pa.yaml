@@ -1,0 +1,2651 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Booking:
+    Properties:
+      Fill: =RGBA(44, 44, 44, 1)
+      OnVisible: "=If(\r\n   IsEmpty(BookingListCollection),\r\n   \r\n//Reset(TextInput2_2);\r\nReset(Txt_Filter_Dashboard_Search);\r\n\r\n\r\n// Populate SelectedBookingStatus with default options from the BookingStatus choice column\r\nClearCollect(\r\n    SelectedBookingStatus,\r\n    Choices('Booking List'.BookingStatus)\r\n);\r\n\r\n);\r\n\r\n"
+    Children:
+      - CanvasScrollScreenDashboard:
+          Control: FluidGrid@2.3.1
+          Properties:
+            BorderThickness: =0
+            Fill: =RGBA(44, 44, 44, 1)
+            Height: =Parent.Height - Self.Y
+            Width: =If(IsMobileLayout,Parent.Width, Parent.Width - Cmp_SideNav_Dashboard.Width)
+            X: =100
+            Y: =62
+          Children:
+            - ScrollScreenDashboard:
+                Control: DataCard@1.0.2
+                Properties:
+                  Height: =If(CountRows(BookingListGallery.AllItems)<500,Parent.Height, CountRows(BookingListGallery.AllItems)*100)
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+                Children:
+                  - Con_DashboardMain:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: |-
+                          =If(
+                              IsMobileLayout,
+                              Parent.Height - Con_DashboardCounter.Height - Con_DashboardHeader.Height,
+                              Parent.Height 
+                          )
+                        LayoutDirection: =LayoutDirection.Vertical
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =If(IsMobileLayout,Parent.Width,Parent.Width)
+                        X: |-
+                          =//If(IsMobileLayout,0,100)
+                          0
+                        Y: "=\r\n   Con_DashboardCounter.Y + Con_DashboardCounter.Height\r\n    \r\n   \r\n"
+                      Children:
+                        - Con_DashboardBody:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(44, 44, 44, 1)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - Con_GalleryPanel:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(44, 44, 44, 1)
+                                    Height: =Parent.Height- Con_DashboardHeader.Height
+                                    LayoutDirection: =If(IsMobileLayout || IsTabletLayout,LayoutDirection.Vertical,LayoutDirection.Horizontal)
+                                    PaddingLeft: =20
+                                    PaddingRight: =20
+                                    PaddingTop: =5
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =If(IsMobileLayout || IsTabletLayout ,Parent.Width,Parent.Width- Cmp_SideNav_Dashboard.Width)
+                                  Children:
+                                    - Con_Gallery:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          Fill: =RGBA(32, 32, 32, 1)
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =5
+                                          PaddingLeft: =20
+                                          PaddingRight: =20
+                                          PaddingTop: =5
+                                        Children:
+                                          - con_FilterDashboard:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: AutoLayout
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.SetByContainer
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                Height: =50
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                              Children:
+                                                - Con_TxtAll Booking:
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.SetByContainer
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =0
+                                                      Height: =Parent.Height
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      PaddingLeft: =10
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Width: =If(IsMobileLayout || IsTabletLayout ,100,200)
+                                                    Children:
+                                                      - Lbl_All Bookings:
+                                                          Control: Text@0.0.51
+                                                          Properties:
+                                                            Align: ='TextCanvas.Align'.Start
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                            FontColor: =RGBA(252, 194, 27, 1)
+                                                            Size: =If(IsMobileLayout || IsTabletLayout ,12,18)
+                                                            Text: ="All Lessons"
+                                                            Weight: ='TextCanvas.Weight'.Bold
+                                                            Width: =Parent.Width
+                                                - Con_FilterButtonouterContainer:
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      Height: =Parent.Height
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      LayoutJustifyContent: =LayoutJustifyContent.End
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                    Children:
+                                                      - Con_FilterButton:
+                                                          Control: GroupContainer@1.5.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.End
+                                                            DropShadow: =DropShadow.None
+                                                            FillPortions: =0
+                                                            Height: =Parent.Height
+                                                            LayoutAlignItems: =LayoutAlignItems.Center
+                                                            LayoutDirection: =LayoutDirection.Vertical
+                                                            PaddingRight: =5
+                                                            PaddingTop: =5
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                            Width: =Parent.Width
+                                                          Children:
+                                                            - FilterButton:
+                                                                Control: Button@0.0.45
+                                                                Properties:
+                                                                  Align: =Align.Justify
+                                                                  AlignInContainer: =AlignInContainer.End
+                                                                  Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                                                  BasePaletteColor: =RGBA(32, 32, 32, 1)
+                                                                  BorderColor: =RGBA(252, 194, 27, 1)
+                                                                  BorderRadiusBottomLeft: =10
+                                                                  BorderRadiusBottomRight: =10
+                                                                  BorderRadiusTopLeft: =10
+                                                                  BorderRadiusTopRight: =10
+                                                                  BorderThickness: =2
+                                                                  Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                                  FontColor: =RGBA(255, 255, 255, 1)
+                                                                  FontSize: '=                       '
+                                                                  Height: =If(IsMobileLayout,35, 40)
+                                                                  Icon: ="ArrowClockwise"
+                                                                  Layout: =If(IsMobileLayout,"Icon only" ,"Icon before")
+                                                                  OnSelect: |-
+                                                                    =UpdateContext({ShowLoader:false});
+                                                                    ClearCollect(BookingListCollection,'Booking List');
+                                                                    UpdateContext({ShowLoader:false});
+                                                                  PaddingLeft: =10
+                                                                  Text: ="Refresh"
+                                                                  Width: |+
+                                                                    =If(IsMobileLayout,40, 100)
+                                                                  Y: =(Parent.Height-Self.Height)/2
+                                                      - Con_FilterButton_2:
+                                                          Control: GroupContainer@1.5.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.End
+                                                            DropShadow: =DropShadow.None
+                                                            FillPortions: =0
+                                                            Height: =Parent.Height
+                                                            LayoutAlignItems: =LayoutAlignItems.Center
+                                                            LayoutDirection: =LayoutDirection.Vertical
+                                                            PaddingRight: =5
+                                                            PaddingTop: =5
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                            Width: =120
+                                                          Children:
+                                                            - FilterButton_9:
+                                                                Control: Button@0.0.45
+                                                                Properties:
+                                                                  Align: =Align.Justify
+                                                                  AlignInContainer: =AlignInContainer.End
+                                                                  Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                                                  BasePaletteColor: =RGBA(32, 32, 32, 1)
+                                                                  BorderColor: =RGBA(252, 194, 27, 1)
+                                                                  BorderRadiusBottomLeft: =10
+                                                                  BorderRadiusBottomRight: =10
+                                                                  BorderRadiusTopLeft: =10
+                                                                  BorderRadiusTopRight: =10
+                                                                  BorderThickness: =2
+                                                                  Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                                  FontColor: =RGBA(255, 255, 255, 1)
+                                                                  FontSize: '=                       '
+                                                                  Height: =If(IsMobileLayout,35, 40)
+                                                                  Icon: ="Filter"
+                                                                  Layout: =If(IsMobileLayout,"Icon only" ,"Icon before")
+                                                                  OnSelect: =UpdateContext({FilterPopup2:true})
+                                                                  PaddingLeft: =10
+                                                                  Text: ="Filter"
+                                                                  Width: |
+                                                                    =If(IsMobileLayout,40, 100)
+                                                                  Y: =(Parent.Height-Self.Height)/2
+                                          - Con_HeaderTxt:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.Regular
+                                                Fill: =RGBA(44, 44, 44, 1)
+                                                FillPortions: =0
+                                                Height: =50
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutMinWidth: =320
+                                              Children:
+                                                - lbl_Requestor:
+                                                    Control: Text@0.0.51
+                                                    Properties:
+                                                      Align: ='TextCanvas.Align'.Center
+                                                      BorderStyle: =BorderStyle.Solid
+                                                      FillPortions: =1
+                                                      Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                      FontColor: =RGBA(255, 255, 255, 1)
+                                                      Height: =Parent.Height
+                                                      LayoutMinWidth: =60
+                                                      Size: =If(IsMobileLayout || IsTabletLayout ,12,16)
+                                                      Text: |-
+                                                        ="🚚 Project"
+                                                      Visible: |+
+                                                        =true
+                                                      Weight: ='TextCanvas.Weight'.Bold
+                                                - lbl_Bus:
+                                                    Control: Text@0.0.51
+                                                    Properties:
+                                                      Align: ='TextCanvas.Align'.Center
+                                                      BorderStyle: =BorderStyle.Solid
+                                                      FillPortions: =1
+                                                      Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                      FontColor: =RGBA(255, 255, 255, 1)
+                                                      Height: =Parent.Height
+                                                      LayoutMinWidth: =60
+                                                      Size: =If(IsMobileLayout || IsTabletLayout ,12,16)
+                                                      Text: |-
+                                                        ="🔍  Problem"
+                                                      Weight: ='TextCanvas.Weight'.Bold
+                                                - lbl_BusID:
+                                                    Control: Text@0.0.51
+                                                    Properties:
+                                                      Align: ='TextCanvas.Align'.Center
+                                                      BorderStyle: =BorderStyle.Solid
+                                                      FillPortions: =1
+                                                      Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                      FontColor: =RGBA(255, 255, 255, 1)
+                                                      Height: =Parent.Height
+                                                      LayoutMinWidth: =60
+                                                      Size: =If(IsMobileLayout || IsTabletLayout ,12,16)
+                                                      Text: |-
+                                                        ="🚚 Solution"
+                                                      Weight: ='TextCanvas.Weight'.Bold
+                                                - lbl_DateofRequest:
+                                                    Control: Text@0.0.51
+                                                    Properties:
+                                                      Align: ='TextCanvas.Align'.Center
+                                                      BorderStyle: =BorderStyle.Solid
+                                                      FillPortions: =1
+                                                      Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                      FontColor: =RGBA(255, 255, 255, 1)
+                                                      Height: =Parent.Height
+                                                      LayoutMinWidth: =60
+                                                      Size: =If(IsMobileLayout || IsTabletLayout ,11,16)
+                                                      Text: ="❌ IMG NIO"
+                                                      VerticalAlign: =VerticalAlign.Top
+                                                      Weight: ='TextCanvas.Weight'.Bold
+                                                - Lbl_SeatNo:
+                                                    Control: Text@0.0.51
+                                                    Properties:
+                                                      Align: ='TextCanvas.Align'.Center
+                                                      BorderStyle: =BorderStyle.Solid
+                                                      FillPortions: =1
+                                                      Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                      FontColor: =RGBA(255, 255, 255, 1)
+                                                      Height: =Parent.Height
+                                                      Size: =If(IsMobileLayout || IsTabletLayout ,12,16)
+                                                      Text: ="✔️ IMG IO"
+                                                      Visible: =If(IsMobileLayout || IsTabletLayout ,false,true)
+                                                      Weight: ='TextCanvas.Weight'.Bold
+                                                - txtstatus:
+                                                    Control: Text@0.0.51
+                                                    Properties:
+                                                      Align: ='TextCanvas.Align'.Center
+                                                      BorderStyle: =BorderStyle.Solid
+                                                      FillPortions: =1
+                                                      Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                      FontColor: =RGBA(255, 255, 255, 1)
+                                                      Height: =Parent.Height
+                                                      Size: =If(IsMobileLayout || IsTabletLayout ,12,16)
+                                                      Text: |-
+                                                        ="🔑 Category"
+                                                      Visible: =If(IsMobileLayout || IsTabletLayout ,false,true)
+                                                      Weight: ='TextCanvas.Weight'.Bold
+                                                - lbl_Action:
+                                                    Control: Text@0.0.51
+                                                    Properties:
+                                                      Align: ='TextCanvas.Align'.Start
+                                                      BorderStyle: =BorderStyle.Solid
+                                                      FillPortions: =1
+                                                      Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                      FontColor: =RGBA(255, 255, 255, 1)
+                                                      Height: =Parent.Height
+                                                      PaddingLeft: =20
+                                                      Size: =If(IsMobileLayout || IsTabletLayout ,12,16)
+                                                      Text: |-
+                                                        ="🔨 Actions"
+                                                      Visible: =If(IsMobileLayout || IsTabletLayout ,false,true)
+                                                      Weight: ='TextCanvas.Weight'.Bold
+                                          - BookingListGallery:
+                                              Control: Gallery@2.15.0
+                                              Variant: Vertical
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.SetByContainer
+                                                Height: =CountRows(BookingListGallery.AllItems)*100
+                                                Items: "=// Filter the BookingListCollection based in the logged in USer and various criteria and sort the results\r\nSortByColumns(\r\n    Filter(\r\n        BookingListCollection,\r\n        Requestor.Email = User().Email && \r\n        // Partial match for BookedCarID and BookedCarName using Txt_Filter_Dashboard_Search\r\n        (IsBlank(Txt_Filter_Dashboard_Search.Text) ||\r\n         // Check if BookedCarID starts with the search text\r\n StartsWith(\r\n            Text(BookingPurpose),\r\n            Txt_Filter_Dashboard_Search.Text\r\n        ) ||\r\n         // Check if BookingPickupLocation starts with the search text\r\n StartsWith(\r\n            Text(BookingPickupLocation),\r\n            Txt_Filter_Dashboard_Search.Text\r\n        ) ||\r\n         // Check if BookingDropoffLocation starts with the search text\r\n StartsWith(\r\n            Text(BookingDropoffLocation),\r\n            Txt_Filter_Dashboard_Search.Text\r\n        ) ||\r\n         // Check if BookedCarName starts with the search text\r\n StartsWith(\r\n            BookedCarName,\r\n            Txt_Filter_Dashboard_Search.Text\r\n        )),\r\n        // Filter by BookingStatus (Choice column) using the collection\r\n        (IsBlank(SelectedBookingStatus) ||\r\n         // Check if the BookingStatus exists in the selected statuses\r\n CountRows(\r\n            Filter(\r\n                SelectedBookingStatus,\r\n                Value = BookingStatus.Value\r\n            )\r\n        ) > 0),\r\n        // Filter by BookingPurpose (Choice column) using the collection\r\n       \r\n    \r\n        // Filter by date range\r\n        (IsBlank(DatePickerFrom_Filter_MyBooking_DateRange.SelectedDate) || IsBlank(DatePickerTo_Filter_MyBooking_DateRange.SelectedDate) ||\r\n         // Check if BookingDate is within the selected date range\r\n (BookingDate >= DatePickerFrom_Filter_MyBooking_DateRange.SelectedDate && BookingDate <= DatePickerTo_Filter_MyBooking_DateRange.SelectedDate))\r\n    ),\r\n    // Sort by the Created date in descending order to show the latest entries first\r\n    \"Created\",\r\n    SortOrder.Descending\r\n)"
+                                                OnSelect: =UpdateContext({AllBookingPopup:false});
+                                                TemplatePadding: =2
+                                                TemplateSize: =If(IsMobileLayout || IsTabletLayout ,60,60)
+                                              Children:
+                                                - '!IsBlank(CurrentUser) &&':
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: ManualLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      Fill: =RGBA(44, 44, 44, 1)
+                                                      Height: =Parent.TemplateHeight
+                                                      PaddingRight: =1
+                                                      RadiusBottomLeft: =10
+                                                      RadiusBottomRight: =10
+                                                      RadiusTopLeft: =10
+                                                      RadiusTopRight: =10
+                                                      Width: =Parent.TemplateWidth
+                                                    Children:
+                                                      - lbl_RequestorName:
+                                                          Control: Text@0.0.51
+                                                          Properties:
+                                                            Align: ='TextCanvas.Align'.Center
+                                                            Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                            FontColor: =RGBA(255, 255, 255, 1)
+                                                            Height: =40
+                                                            Size: =If(IsMobileLayout || IsTabletLayout ,10,14)
+                                                            Text: =ThisItem.BookedCarName
+                                                            Weight: ='TextCanvas.Weight'.Medium
+                                                            Width: =If(IsMobileLayout || IsTabletLayout,Parent.Width/4, Parent.Width/7-'!IsBlank(CurrentUser) &&'.PaddingRight-'!IsBlank(CurrentUser) &&'.PaddingLeft)
+                                                            Y: =(Parent.Height-Self.Height)/2
+                                                      - lbl_buses:
+                                                          Control: Text@0.0.51
+                                                          Properties:
+                                                            Align: ='TextCanvas.Align'.Center
+                                                            Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                            FontColor: =RGBA(255, 255, 255, 1)
+                                                            Height: =40
+                                                            Size: =If(IsMobileLayout || IsTabletLayout ,10,14)
+                                                            Text: =ThisItem.BookingPickupLocation
+                                                            Weight: ='TextCanvas.Weight'.Medium
+                                                            Width: =If(IsMobileLayout || IsTabletLayout,Parent.Width/4, Parent.Width/7-'!IsBlank(CurrentUser) &&'.PaddingRight-'!IsBlank(CurrentUser) &&'.PaddingLeft)
+                                                            X: =lbl_RequestorName.X+lbl_RequestorName.Width
+                                                            Y: =(Parent.Height-Self.Height)/2
+                                                      - lbl_BusIDNo:
+                                                          Control: Text@0.0.51
+                                                          Properties:
+                                                            Align: ='TextCanvas.Align'.Center
+                                                            Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                            FontColor: =RGBA(255, 255, 255, 1)
+                                                            Height: =40
+                                                            Size: =If(IsMobileLayout || IsTabletLayout ,10,14)
+                                                            Text: =ThisItem.BookingDropoffLocation
+                                                            Weight: ='TextCanvas.Weight'.Medium
+                                                            Width: =If(IsMobileLayout || IsTabletLayout,Parent.Width/4, Parent.Width/7-'!IsBlank(CurrentUser) &&'.PaddingRight-'!IsBlank(CurrentUser) &&'.PaddingLeft)
+                                                            X: =lbl_buses.X+lbl_buses.Width
+                                                            Y: =(Parent.Height-Self.Height)/2
+                                                      - ConOccupantsDisplay:
+                                                          Control: GroupContainer@1.5.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            ContentLanguage: =ThisItem.BookingDate
+                                                            DropShadow: =DropShadow.None
+                                                            Height: =40
+                                                            LayoutDirection: =LayoutDirection.Vertical
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                            Visible: =false
+                                                            Width: =Parent.Width/7-'!IsBlank(CurrentUser) &&'.PaddingRight-'!IsBlank(CurrentUser) &&'.PaddingLeft
+                                                            X: =lbl_DateofRequest.X+lbl_DateofRequest.Width
+                                                            Y: =(Parent.Height-Self.Height)/2
+                                                          Children:
+                                                            - ConOccupantsCount:
+                                                                Control: GroupContainer@1.5.0
+                                                                Variant: AutoLayout
+                                                                Properties:
+                                                                  Height: =40
+                                                                  LayoutDirection: =LayoutDirection.Vertical
+                                                                  PaddingTop: =5
+                                                                  Visible: =false
+                                                                  Width: =50
+                                                                Children:
+                                                                  - ConOccupantsCounts:
+                                                                      Control: GroupContainer@1.5.0
+                                                                      Variant: ManualLayout
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(252, 194, 27, 1)
+                                                                        BorderThickness: =1
+                                                                        Height: =30
+                                                                        RadiusBottomLeft: =360
+                                                                        RadiusBottomRight: =360
+                                                                        RadiusTopLeft: =360
+                                                                        RadiusTopRight: =360
+                                                                        Width: =30
+                                                                        X: =(Parent.Width-Self.Width)/2
+                                                                        Y: =(Parent.Height-Self.Height)/2
+                                                                      Children:
+                                                                        - OccupantsCount:
+                                                                            Control: Text@0.0.51
+                                                                            Properties:
+                                                                              Align: ='TextCanvas.Align'.Center
+                                                                              FontColor: =RGBA(255, 255, 255, 1)
+                                                                              Height: =Parent.Height
+                                                                              Size: =18
+                                                                              Text: =CountRows(ThisItem.BookingOccupants)
+                                                                              Weight: ='TextCanvas.Weight'.Bold
+                                                                              Width: =Parent.Width
+                                                                              X: =(Parent.Width-Self.Width)/2
+                                                                              Y: =(Parent.Height-Self.Height)/2
+                                                            - lbl_Date:
+                                                                Control: Text@0.0.51
+                                                                Properties:
+                                                                  Align: ='TextCanvas.Align'.Center
+                                                                  Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                                  FontColor: =RGBA(255, 255, 255, 1)
+                                                                  Height: =40
+                                                                  LayoutMinHeight: =
+                                                                  LayoutMinWidth: =
+                                                                  Size: =If(IsMobileLayout || IsTabletLayout ,10,14)
+                                                                  Text: =ThisItem.BookingDate
+                                                                  Weight: ='TextCanvas.Weight'.Medium
+                                                                  Width: =If(IsMobileLayout || IsTabletLayout,Parent.Width/4, Parent.Width/7-BtnOverlayBookingListGallery_1.PaddingRight-BtnOverlayBookingListGallery_1.PaddingLeft)
+                                                                  X: =lbl_BusIDNo_3.X+lbl_BusIDNo_3.Width
+                                                                  Y: =(Parent.Height-Self.Height)/2
+                                                      - lbl_Status:
+                                                          Control: Text@0.0.51
+                                                          Properties:
+                                                            Align: ='TextCanvas.Align'.Center
+                                                            FontColor: |+
+                                                              =Switch(
+                                                                 ThisItem.BookingPurpose,
+                                                                 "Best Practice", RGBA(27, 252, 50, 1),
+                                                                 "Reclamation", RGBA(252, 73, 73, 1),
+                                                                 RGBA(0, 128, 128, 1) // valeur par défaut
+                                                              )
+                                                            Height: =40
+                                                            Size: =If(IsMobileLayout || IsTabletLayout ,12,14)
+                                                            Text: =ThisItem.BookingPurpose
+                                                            Visible: =If(IsMobileLayout || IsTabletLayout ,false,true)
+                                                            Weight: ='TextCanvas.Weight'.Bold
+                                                            Width: =Parent.Width/7-'!IsBlank(CurrentUser) &&'.PaddingRight-'!IsBlank(CurrentUser) &&'.PaddingLeft
+                                                            X: =ConOccupantsDisplay.X+ConOccupantsDisplay.Width
+                                                            Y: =(Parent.Height-Self.Height)/2
+                                                      - Button_Action:
+                                                          Control: Classic/Button@2.2.0
+                                                          Properties:
+                                                            BorderColor: =Switch(Button_Action.Text,"Best Practice",ColorValue("#1BFC32"),"Reclamation",ColorValue("#FC4949"))
+                                                            Color: =RGBA(100, 255, 255, 1)
+                                                            DisabledBorderColor: =RGBA(100, 244, 244, 1)
+                                                            DisabledColor: =RGBA(100, 166, 166, 1)
+                                                            DisabledFill: =RGBA(100, 49, 51, 1)
+                                                            Fill: =Switch(Button_Action.Text,"Best Practice",ColorValue("#06580E"),"Reclamation",ColorValue("#704040"))
+                                                            Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                            FontWeight: =FontWeight.Bold
+                                                            HoverBorderColor: =Switch(Button_Action.Text,"Best Practice",Color.LightGreen,"Reclamation",Color.Red)
+                                                            HoverColor: =RGBA(255, 255, 255, 1)
+                                                            HoverFill: =Switch(Button_Action.Text,"Best Practice",Color.LightGreen,"Reclamation",Color.Red)
+                                                            OnSelect: |+
+                                                              =UpdateContext({ ShowLoader: true });
+                                                              Remove('Booking List', ThisItem);
+                                                              Refresh('Booking List');
+                                                              UpdateContext({ ShowLoader: false });
+                                                              ClearCollect(BookingListCollection, 'Booking List');
+
+                                                            PressedBorderColor: =Switch(Button_Action.Text,"Best Practice",Color.LightGreen,"Reclamation",Color.Red)
+                                                            PressedFill: =Switch(Button_Action.Text,"Positive Lesson",Color.LightGreen,"Reclamation",Color.Red)
+                                                            Size: =UX.Font.Normal
+                                                            Text: |+
+                                                              ="Delete"
+                                                            Underline: =
+                                                            Visible: |-
+                                                              = !IsBlank(CurrentUser) && 
+                                                              IsAdminUser && 
+                                                              !(IsMobileLayout || IsTabletLayout)
+                                                            Width: =77
+                                                            X: =(Parent.Width - (Self.Width * 2 + 10))
+                                                            Y: =(Parent.Height-Self.Height)/2
+                                                      - BtnSelectBooking:
+                                                          Control: Classic/Button@2.2.0
+                                                          Properties:
+                                                            BorderColor: =Color.Transparent
+                                                            BorderStyle: =BorderStyle.None
+                                                            BorderThickness: =0
+                                                            Color: =RGBA(0, 0, 0, 0)
+                                                            Fill: =RGBA(0, 0, 0, 0)
+                                                            Height: =60
+                                                            HoverColor: =Self.Fill
+                                                            HoverFill: =Self.Fill
+                                                            OnSelect: =UpdateContext({AllBookingPopup:true});Set(VarRecordType,"Edit");Set(VarRecord,ThisItem)
+                                                            PressedFill: =Parent.Fill
+                                                            RadiusBottomLeft: =20
+                                                            RadiusBottomRight: =20
+                                                            RadiusTopLeft: =20
+                                                            RadiusTopRight: =20
+                                                            Text: =
+                                                            Width: =1012
+                                                      - Image6:
+                                                          Control: Image@2.2.3
+                                                          Properties:
+                                                            Height: =60
+                                                            Image: |+
+                                                              =First(ThisItem.'Pièces jointes').AbsoluteUri
+                                                            Width: =120
+                                                            X: |+
+                                                              =lbl_DateofRequest.X+lbl_DateofRequest.Width + 10
+                                                      - Image8:
+                                                          Control: Image@2.2.3
+                                                          Properties:
+                                                            Height: =60
+                                                            Image: |+
+                                                              =Last(FirstN(ThisItem.'Pièces jointes', 2)).AbsoluteUri
+                                                            Width: =117
+                                                            X: |+
+                                                              =lbl_BusID.X+lbl_BusID.Width + 10
+                                                      - Button_Action_6:
+                                                          Control: Classic/Button@2.2.0
+                                                          Properties:
+                                                            BorderColor: =Switch(Button_Action_6.Text,"Best Practice",ColorValue("#1BFC32"),"Reclamation",ColorValue("#FC4949"))
+                                                            Color: =RGBA(100, 255, 255, 1)
+                                                            DisabledBorderColor: =RGBA(100, 244, 244, 1)
+                                                            DisabledColor: =RGBA(100, 166, 166, 1)
+                                                            DisabledFill: =RGBA(100, 49, 51, 1)
+                                                            Fill: =Switch(Button_Action_6.Text,"Best Practice",ColorValue("#06580E"),"Reclamation",ColorValue("#704040"))
+                                                            Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                            FontWeight: =FontWeight.Bold
+                                                            HoverBorderColor: =Switch(Button_Action_6.Text,"Best Practice",Color.LightGreen,"Reclamation",Color.Red)
+                                                            HoverColor: =RGBA(255, 255, 255, 1)
+                                                            HoverFill: =Switch(Button_Action_6.Text,"Best Practice",Color.LightGreen,"Reclamation",Color.Red)
+                                                            OnSelect: |
+                                                              =Set(varItemToEdit1, ThisItem);
+                                                              Navigate(Create);
+                                                            PressedBorderColor: =Switch(Button_Action_6.Text,"Best Practice",Color.LightGreen,"Reclamation",Color.Red)
+                                                            PressedFill: =Switch(Button_Action_6.Text,"Positive Lesson",Color.LightGreen,"Reclamation",Color.Red)
+                                                            Size: =UX.Font.Normal
+                                                            Text: ="Update"
+                                                            Underline: =
+                                                            Visible: |+
+                                                              =!IsBlank(CurrentUser) &&
+                                                              IsAdminUser = true 
+
+
+                                                            Width: =77
+                                                            X: =(Parent.Width - (Self.Width*2 + 10)) + Self.Width + 10
+                                                            Y: =(Parent.Height-Self.Height)/2
+                  - Con_DashboardCounter:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(44, 44, 44, 1)
+                        Height: =If(IsMobileLayout || IsTabletLayout, 450,150)
+                        LayoutDirection: |-
+                          =If(
+                              IsMobileLayout || IsTabletLayout,LayoutDirection.Vertical,LayoutDirection.Horizontal)
+                        LayoutGap: =10
+                        PaddingBottom: =10
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =If(IsMobileLayout || IsTabletLayout,Parent.Width,Parent.Width)
+                        X: |-
+                          =//If(IsMobileLayout || IsTabletLayout,0,100)
+                          0
+                      Children:
+                        - Con_TotalBookings:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(32, 32, 32, 1)
+                              Height: =120
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =5
+                              LayoutMinWidth: =200
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: |-
+                                =If(
+                                    IsMobileLayout ||
+                                    IsTabletLayout, Parent.Width/2,
+                                    Parent.Width/4.4
+                                )
+                              X: =Con_TotalBuses.X + Con_TotalBuses.Width + 20
+                              Y: |-
+                                =If(
+                                    IsMobileLayout,
+                                    Con_TotalBuses.Y + Con_TotalBuses.Height + 5,
+                                    IsTabletLayout,
+                                    con_TotalBookingsToday.Y + con_TotalBookingsToday.Height + 5,
+                                    20
+                                )
+                            Children:
+                              - Con_TotalBusesColor_2:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =5
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - TotalBuses_Shape_2:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Fill: =RGBA(3, 128, 128, 1)
+                                          Height: =Parent.Height
+                              - Con_txtTotalBuses_2:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingLeft: =20
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    Y: =5
+                                  Children:
+                                    - lbl_TotalBuses_2:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Align: ='TextCanvas.Align'.Start
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          FillPortions: =1
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(41, 145, 145, 1)
+                                          Size: =If(IsMobileLayout,12,16)
+                                          Text: ="Total Lessons"
+                                          Weight: ='TextCanvas.Weight'.Bold
+                              - Con_TotalBusesNumbers & Image_2:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =If(IsMobileLayout,30,60)
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingLeft: =2
+                                    PaddingRight: =2
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    Y: =40
+                                  Children:
+                                    - Con_TotalBusesNumber_2:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          PaddingLeft: =20
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width/2
+                                        Children:
+                                          - TextCanvas2_2:
+                                              Control: Text@0.0.51
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Start
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                FillPortions: =1
+                                                Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                FontColor: =RGBA(255, 255, 255, 1)
+                                                Size: =If(IsMobileLayout,18,25)
+                                                Text: |-
+                                                  =// Count the number of rows in the BookingListCollection
+                                                  CountRows(BookingListCollection)
+                                                VerticalAlign: =VerticalAlign.Middle
+                                                Weight: ='TextCanvas.Weight'.Bold
+                                    - Con_TotalBusesLogo_2:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          PaddingRight: =10
+                                          PaddingTop: =5
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width/2
+                                        Children:
+                                          - Img_TotalBusesLogo_2:
+                                              Control: Image@2.2.3
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.End
+                                                Height: =If(IsMobileLayout,25,50)
+                                                Image: =ImgDashboardBooking
+                                                PaddingBottom: =If(IsMobileLayout||IsTabletLayout,5, 10)
+                                                PaddingTop: =If(IsMobileLayout||IsTabletLayout,5, 10)
+                                                Width: =If(IsMobileLayout,25,50)
+                                          - Image12:
+                                              Control: Image@2.2.3
+                                              Properties:
+                                                Image: =ImgDashboardBooking
+                                          - Image13:
+                                              Control: Image@2.2.3
+                                              Properties:
+                                                Image: =ImgDashboardBooking
+                        - Con_TotalBuses:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(32, 32, 32, 1)
+                              Height: =120
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =5
+                              LayoutMinWidth: =200
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: |-
+                                =If(
+                                    IsMobileLayout ||
+                                    IsTabletLayout, Parent.Width/2,
+                                    Parent.Width/4.4
+                                )
+                              X: =con_TotalBookingsToday.X + con_TotalBookingsToday.Width + 20
+                              Y: |-
+                                =If(
+                                    IsMobileLayout,
+                                    con_TotalBookingsToday.Y + con_TotalBookingsToday.Height + 5,
+                                    IsTabletLayout,
+                                    Con_TotalCancelledBooking.Y + Con_TotalCancelledBooking.Height + 5,
+                                    20
+                                )
+                            Children:
+                              - Con_TotalBusesColor:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =5
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - TotalBuses_Shape:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Fill: =RGBA(237, 108, 48, 1)
+                                          Height: =Parent.Height
+                              - Con_txtTotalBuses:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingLeft: =20
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    Y: =5
+                                  Children:
+                                    - lbl_TotalBuses:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Align: ='TextCanvas.Align'.Start
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          FillPortions: =1
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(237, 108, 48, 1)
+                                          Size: =If(IsMobileLayout,12,16)
+                                          Text: ="Total Projects"
+                                          Weight: ='TextCanvas.Weight'.Bold
+                              - Con_TotalBusesNumbers & Image:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =If(IsMobileLayout,30,60)
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingLeft: =2
+                                    PaddingRight: =2
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    Y: =40
+                                  Children:
+                                    - Con_TotalBusesNumber:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          PaddingLeft: =20
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width/2
+                                        Children:
+                                          - TextCanvas2:
+                                              Control: Text@0.0.51
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Start
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                FillPortions: =1
+                                                Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                FontColor: =RGBA(255, 255, 255, 1)
+                                                Size: =If(IsMobileLayout,18,25)
+                                                Text: |
+                                                  =// Count the number of rows in the BookingCarCollection
+                                                  CountRows(BookingCarCollection)
+                                                Weight: ='TextCanvas.Weight'.Bold
+                                    - Con_TotalBusesLogo:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          PaddingRight: =10
+                                          PaddingTop: =5
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width/2
+                                        Children:
+                                          - Img_TotalBusesLogo:
+                                              Control: Image@2.2.3
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.End
+                                                Height: =If(IsMobileLayout,25,50)
+                                                Image: =ImgDashboardCar
+                                                PaddingBottom: =If(IsMobileLayout||IsTabletLayout,5, 10)
+                                                PaddingTop: =If(IsMobileLayout||IsTabletLayout,5, 10)
+                                                Width: =If(IsMobileLayout,25,50)
+                        - con_TotalBookingsToday:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(32, 32, 32, 1)
+                              Height: =120
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =5
+                              LayoutMinWidth: =200
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: |-
+                                =If(
+                                    IsMobileLayout ||
+                                    IsTabletLayout, Parent.Width/2,
+                                    Parent.Width/4.4
+                                )
+                              X: |-
+                                =
+                                Con_TotalCancelledBooking.X + Con_TotalCancelledBooking.Width + 20
+                              Y: |-
+                                =If(
+                                    IsMobileLayout,
+                                    Con_TotalCancelledBooking.Y + Con_TotalCancelledBooking.Height + 5,
+                                    20
+                                )
+                            Children:
+                              - Con_TodaysBookingColor:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =5
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - TodayBooking_Shape:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Fill: =RGBA(64, 192, 231, 1)
+                                          Height: =Parent.Height
+                              - Con_TotalBookingToday:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingLeft: =20
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    Y: =5
+                                  Children:
+                                    - lbl_TotalBookingToday:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Align: ='TextCanvas.Align'.Start
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          FillPortions: =1
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(64, 192, 231, 1)
+                                          Size: =If(IsMobileLayout,12,16)
+                                          Text: ="Lessons Learned Today"
+                                          Weight: ='TextCanvas.Weight'.Bold
+                              - Con_Total bookingToday Numbers & Image:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =If(IsMobileLayout,30,60)
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingLeft: =2
+                                    PaddingRight: =2
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    Y: =40
+                                  Children:
+                                    - Con_TotalBookingsTodayNumber:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          PaddingLeft: =20
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width/2
+                                        Children:
+                                          - TextCanvas1:
+                                              Control: Text@0.0.51
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                FillPortions: =1
+                                                Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                FontColor: =RGBA(255, 255, 255, 1)
+                                                Size: =If(IsMobileLayout,18,25)
+                                                Text: |-
+                                                  =// Count the number of rows in the BookingListCollection where the BookingDate is Today 
+                                                  CountRows(
+                                                      Filter(
+                                                          BookingListCollection,
+                                                          DateValue(Text(Créé, "[$-en-US]yyyy-mm-dd")) = Today()
+                                                      )
+                                                  )
+                                                Weight: ='TextCanvas.Weight'.Bold
+                                    - Con_TotalBookingTodayLogo:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          PaddingRight: =10
+                                          PaddingTop: =5
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width/2
+                                        Children:
+                                          - Img_TodaysBookingLogo:
+                                              Control: Image@2.2.3
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.End
+                                                Height: =If(IsMobileLayout,25,50)
+                                                Image: =ImgDashboardDate
+                                                PaddingBottom: =If(IsMobileLayout||IsTabletLayout,5, 10)
+                                                PaddingTop: =If(IsMobileLayout||IsTabletLayout,5, 10)
+                                                Width: =If(IsMobileLayout,25,50)
+                        - Con_TotalCancelledBooking:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(32, 32, 32, 1)
+                              Height: =120
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =5
+                              LayoutMinWidth: =200
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: |-
+                                =If(
+                                    IsMobileLayout ||
+                                    IsTabletLayout, Parent.Width/2,
+                                    Parent.Width/4.4
+                                )
+                              X: =19
+                              Y: =20
+                            Children:
+                              - Con_TotalCancelledColor:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =5
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - TodayBookingCancelled_Shape:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Fill: =RGBA(252, 73, 73, 1)
+                                          Height: =Parent.Height
+                              - Con_TotalBookingCancelledToday:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingLeft: =20
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    Y: =5
+                                  Children:
+                                    - lbl_TotalBookingCancelledToday:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Align: ='TextCanvas.Align'.Start
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          FillPortions: =1
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(252, 73, 73, 1)
+                                          Size: =If(IsMobileLayout,12,16)
+                                          Text: ="Total Lessons Cancelled Today"
+                                          Weight: ='TextCanvas.Weight'.Bold
+                              - Con_Total bookingCancelledToday Numbers & Image:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =If(IsMobileLayout,30,60)
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingLeft: =2
+                                    PaddingRight: =2
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    Y: =40
+                                  Children:
+                                    - Con_TotalBookingsCancelledTodayNumber:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          PaddingLeft: =20
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width/2
+                                        Children:
+                                          - TextCanvas3:
+                                              Control: Text@0.0.51
+                                              Properties:
+                                                Align: ='TextCanvas.Align'.Start
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                FillPortions: =1
+                                                Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                                FontColor: =RGBA(255, 255, 255, 1)
+                                                Size: =If(IsMobileLayout,18,25)
+                                                Text: |+
+                                                  =// Count the number of rows in the BookingListCollection where the BookingStatus is "Cancelled" 
+                                                  // and the Modified date is today
+                                                  CountRows(
+                                                      Filter(
+                                                          BookingListCollection,
+                                                          BookingStatus.Value = "Cancelled" && 
+                                                          // Compare only the date part of the 'Modified' column with today's date to handle potential datatype mismatches
+                                                          DateValue(Text(Modifié, "[$-en-US]yyyy-mm-dd")) = Today()
+                                                      )
+                                                  )
+
+                                                Weight: ='TextCanvas.Weight'.Bold
+                                    - Con_TotalBookingCancelledTodayLogo:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          FillPortions: =0
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          PaddingRight: =10
+                                          PaddingTop: =5
+                                          Width: =Parent.Width/2
+                                        Children:
+                                          - Img_BookingCancelledLogo:
+                                              Control: Image@2.2.3
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.End
+                                                Height: =If(IsMobileLayout,25,50)
+                                                Image: =ImgDashboardCancelled
+                                                PaddingBottom: =If(IsMobileLayout||IsTabletLayout,0, 10)
+                                                PaddingTop: =If(IsMobileLayout||IsTabletLayout,0, 10)
+                                                Width: =If(IsMobileLayout,25,50)
+      - Con_DashboardHeader:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(32, 32, 32, 1)
+            Height: '= If(IsMobileLayout,60,80) '
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            Y: |-
+              =If(
+                  IsMobileLayout,
+                  0,
+                  0
+              )
+          Children:
+            - Cmp_Header_1:
+                Control: CanvasComponent
+                ComponentName: Cmp_Header
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  CurrentIndicatorColor: =RGBA(252, 194, 27, 1)
+                  Default: ="Book a Bus"
+                  DisabledColor: =RGBA(89, 89, 89, 1)
+                  Fill: =RGBA(32, 32, 32, 1)
+                  Height: =Parent.Height
+                  HoverFill: =RGBA(0, 0, 0, 1)
+                  SelectedFill: =RGBA(44,44, 44, 1)
+                  SidebarItems: "=Table(\r\n    {Value: \"Book a Bus\", Icon:ImgCreateDisabled , IconSelected:ImgCreateSelected, Screen: App.ActiveScreen},\r\n    {Value: \"Bookings\", Icon:ImgBookingDisabled, IconSelected:ImgBookingSelected, Screen: App.ActiveScreen},\r\n    {Value: \"Buses\", Icon: ImgCarDisabled, IconSelected:ImgCarSelected,Screen: App.ActiveScreen},\r\n    {Value: \"My Bookings\", Icon: ImgHistoryDisabled, IconSelected:ImgHistorySelected,Screen: App.ActiveScreen}\r\n   \r\n )"
+                  Width: =Max(App.Width, App.MinScreenWidth)
+      - Con_AllBookingPopup:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(0, 0, 0, 0.86)
+            Height: =Parent.Height-Con_DashboardHeader.Height
+            PaddingBottom: =
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =AllBookingPopup
+            Width: =If(IsMobileLayout|| IsTabletLayout,Parent.Width,Parent.Width-Cmp_SideNav_Dashboard.Width)
+            X: =If(IsMobileLayout|| IsTabletLayout,0,Cmp_SideNav_Dashboard.Width)
+            Y: =Con_DashboardHeader.Height
+          Children:
+            - Con_AllBookingPopupBody:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(23, 23, 23, 1)
+                  Height: =If(IsMobileLayout|| IsTabletLayout,600,600)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  PaddingBottom: =10
+                  Width: =If(IsMobileLayout,400,IsTabletLayout, 600,Parent.Width/2.4)
+                  X: =If(IsMobileLayout,(Parent.Width-Self.Width)/2 ,IsTabletLayout,(Parent.Width-Self.Width)/2,(Parent.Width-Self.Width)/2)
+                  Y: =If(IsMobileLayout,(Parent.Height-Self.Height)/2, IsTabletLayout,(Parent.Height-Self.Height)/2,(Parent.Height-Self.Height)/2)
+                Children:
+                  - Con_AllBookingPopupHeader:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =80
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - Con_AllBookingPopupHeaderTitle:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =60
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width/1.8-Con_AllBookingPopupClose.Width
+                            Children:
+                              - TxtAllBookingPopupHeaderTitle:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    Align: ='TextCanvas.Align'.Start
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    FillPortions: =1
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    FontColor: =RGBA(255, 255, 255, 1)
+                                    PaddingLeft: =20
+                                    Size: =18
+                                    Text: |-
+                                      ="Request #" & VarRecord.ID
+                                    Weight: ='TextCanvas.Weight'.Semibold
+                        - Con_AllBookingPopupCancelbooking:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =60
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingBottom: =10
+                              PaddingRight: =10
+                              PaddingTop: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width/2-Con_AllBookingPopupClose.Width
+                            Children:
+                              - BtnAllBookingPopupCancelbooking:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.End
+                                    Appearance: ='ButtonCanvas.Appearance'.Transparent
+                                    BasePaletteColor: =RGBA(8, 0, 0, 1)
+                                    BorderColor: =RGBA(252, 73, 73, 1)
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    FontColor: =RGBA(255, 255, 255, 1)
+                                    FontSize: =13
+                                    Height: =40
+                                    OnSelect: =
+                                    Text: ="Cancel Lesson"
+                                    Visible: =VarRecord.BookingStatus.Value = "Positive Lesson"
+                                    Width: =120
+                                    Y: =(Parent.Height-Self.Height)/2
+                        - Con_AllBookingPopupClose:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =60
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingRight: =10
+                              PaddingTop: =15
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =50
+                            Children:
+                              - Con_AllBookingPopupCloseBody:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.End
+                                    Fill: =RGBA(252, 194, 27, 1)
+                                    FillPortions: =0
+                                    Height: =30
+                                    RadiusBottomLeft: =360
+                                    RadiusBottomRight: =360
+                                    RadiusTopLeft: =360
+                                    RadiusTopRight: =360
+                                    Width: =30
+                                    X: =(Parent.Width-Self.Width)/2
+                                    Y: =(Parent.Width-Self.Width)/2
+                                  Children:
+                                    - BtnAllBookingPopupClose:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          Color: =RGBA(32, 32, 32, 1)
+                                          Height: =20
+                                          Icon: =Icon.Cancel
+                                          OnSelect: =UpdateContext({AllBookingPopup:false})
+                                          Width: =20
+                                          X: =(Parent.Width-Self.Width)/2
+                                          Y: =(Parent.Height-Self.Height)/2
+                  - Con_AllBookingPopupDetails:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =100000000
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =10
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =10
+                      Children:
+                        - PopupRequestorDetails:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(44, 44, 44, 1)
+                              FillPortions: =0
+                              Height: =Parent.Height/6-Con_AllBookingPopupDetails.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - ImgRequestorDetails:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =80
+                                  Children:
+                                    - TxtRequestorImg:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Align: =Align.Center
+                                          Height: =Parent.Height
+                                          Size: =If(IsMobileLayout,UX.Font.Large, UX.Font.H1)
+                                          Text: |-
+                                            ="🦲"
+                                          Width: =Parent.Width
+                              - RequestorDetails:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width-ImgRequestorDetails.Width
+                                  Children:
+                                    - lblRequestorName:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(252, 194, 27, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: ="User"
+                                          Weight: ='TextCanvas.Weight'.Bold
+                                          Width: =Parent.Width
+                                          Y: =5
+                                    - TxtRequestorName:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(255, 255, 255, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: =VarRecord.Requestor.DisplayName
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Weight: ='TextCanvas.Weight'.Medium
+                                          Width: =Parent.Width
+                                          Y: =40
+                        - PopupCarDetails:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(44, 44, 44, 1)
+                              FillPortions: =0
+                              Height: =Parent.Height/6-Con_AllBookingPopupDetails.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - ConImgPopupCarDetails:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =80
+                                  Children:
+                                    - ImgPopupCarDetails:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Align: =Align.Center
+                                          Height: =Parent.Height
+                                          Size: =If(IsMobileLayout,UX.Font.Large, UX.Font.H1)
+                                          Text: |-
+                                            ="🚗"
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =Parent.Width
+                                          Y: =0.3333333333333286
+                              - ConPopupCarName:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width-ConImgPopupCarDetails.Width-ConPopupCarID.Width
+                                  Children:
+                                    - LblCarName:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(252, 194, 27, 1)
+                                          Height: =Parent.Height/2
+                                          Text: ="Project Name"
+                                          Weight: ='TextCanvas.Weight'.Semibold
+                                          Width: =Parent.Width
+                                          Y: =5
+                                    - TxtCarName:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(255, 255, 255, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: =VarRecord.BookedCarName
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =Parent.Width
+                                          Y: =40
+                              - ConPopupCarID:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =150
+                        - PopupPurposeofBooking:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(44, 44, 44, 1)
+                              FillPortions: =0
+                              Height: =Parent.Height/6-Con_AllBookingPopupDetails.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - ConPopUpPurposeofBookingImg:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =80
+                                  Children:
+                                    - PopUpPurposeofBookingImg:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =50
+                                          Image: =ImgOptions
+                                          PaddingBottom: =10
+                                          PaddingTop: =10
+                                          RadiusBottomLeft: =360
+                                          RadiusBottomRight: =360
+                                          RadiusTopLeft: =360
+                                          RadiusTopRight: =360
+                                          Width: =50
+                                          X: =(Parent.Width-Self.Width)/2
+                                          Y: =(Parent.Height-Self.Height)/2
+                              - ConPopupPurposeofBookingInfo:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width-ConPopUpPurposeofBookingImg.Width
+                                  Children:
+                                    - LblPurposeofBookinginfo:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(252, 194, 27, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: ="Category of Lesson"
+                                          Weight: ='TextCanvas.Weight'.Semibold
+                                          Width: =Parent.Width
+                                          Y: =5
+                                    - TxtPurposeofBookinginfo:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(255, 255, 255, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: =VarRecord.BookingPurpose
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =Parent.Width
+                                          Y: =40
+                        - PopupReasonforBooking:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(44, 44, 44, 1)
+                              FillPortions: =0
+                              Height: =Parent.Height/6-Con_AllBookingPopupDetails.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Visible: =false
+                            Children:
+                              - ConPopUpReasonofBookingImg:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =80
+                                  Children:
+                                    - PopUpReasonofBookingImg:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =50
+                                          Image: =ImgReason
+                                          PaddingBottom: =10
+                                          PaddingTop: =10
+                                          RadiusBottomLeft: =360
+                                          RadiusBottomRight: =360
+                                          RadiusTopLeft: =360
+                                          RadiusTopRight: =360
+                                          Width: =50
+                                          X: =(Parent.Width-Self.Width)/2
+                                          Y: =(Parent.Height-Self.Height)/2
+                        - PopupLocation:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(44, 44, 44, 1)
+                              FillPortions: =0
+                              Height: =Parent.Height/6-Con_AllBookingPopupDetails.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutOverflowX: =LayoutOverflow.Scroll
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - ConPopupLocationImg:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =80
+                                  Children:
+                                    - ImgPopUpLocation:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =50
+                                          Image: =ImgReason
+                                          PaddingBottom: =10
+                                          PaddingTop: =10
+                                          RadiusBottomLeft: =360
+                                          RadiusBottomRight: =360
+                                          RadiusTopLeft: =360
+                                          RadiusTopRight: =360
+                                          Width: =50
+                                          X: =(Parent.Width-Self.Width)/2
+                                          Y: =(Parent.Height-Self.Height)/2
+                              - ConPopupLocationInfo:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width-ConPopupLocationImg.Width
+                                  Children:
+                                    - LblPopupLocation:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(252, 194, 27, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: ="Problem"
+                                          Weight: ='TextCanvas.Weight'.Semibold
+                                          Width: =Parent.Width
+                                          Y: =5
+                                    - TxtPopupLocation:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(255, 255, 255, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: '=VarRecord.BookingPickupLocation '
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =Parent.Width
+                                          Y: =27
+                        - PopupDateandTime:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(44, 44, 44, 1)
+                              FillPortions: =0
+                              Height: =Parent.Height/6-Con_AllBookingPopupDetails.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - ConPopupDateandTimeImg:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =80
+                                  Children:
+                                    - PopupDateandTimeImg:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =50
+                                          Image: =ImgDate
+                                          PaddingBottom: =5
+                                          PaddingTop: =10
+                                          RadiusBottomLeft: =360
+                                          RadiusBottomRight: =360
+                                          RadiusTopLeft: =360
+                                          RadiusTopRight: =360
+                                          Width: =50
+                                          X: =(Parent.Width-Self.Width)/2
+                                          Y: =(Parent.Height-Self.Height)/2
+                              - ConPopupDateandTimeInfo:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width-ConPopupDateandTimeImg.Width
+                                  Children:
+                                    - LblDateandTimeInfo:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(252, 194, 27, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: ="Solution"
+                                          Weight: ='TextCanvas.Weight'.Semibold
+                                          Width: =Parent.Width
+                                          Y: =5
+                                    - TxtDateandTimeInfo:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(255, 255, 255, 1)
+                                          Height: =40
+                                          Size: =UX.Font.Normal + 2
+                                          Text: =VarRecord.BookingDropoffLocation
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =383
+                                          Y: =31
+                        - PopupOccupants:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(44, 44, 44, 1)
+                              FillPortions: =0
+                              Height: =Parent.Height/2-Con_AllBookingPopupDetails.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - ConPopupOccupantsImg:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Visible: =false
+                                    Width: =80
+                                  Children:
+                                    - PopupOccupantsImg:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =50
+                                          Image: =ImgSeat
+                                          PaddingBottom: =5
+                                          PaddingTop: =10
+                                          RadiusBottomLeft: =360
+                                          RadiusBottomRight: =360
+                                          RadiusTopLeft: =360
+                                          RadiusTopRight: =360
+                                          Width: =50
+                                          X: =(Parent.Width-Self.Width)/2
+                                          Y: =(Parent.Height-Self.Height)/2
+                              - ConPopupOccupantsInfo:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width-ConPopupOccupantsImg.Width
+                                  Children:
+                                    - LblOccupantsInfo:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(252, 194, 27, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: ="IMG"
+                                          Visible: =false
+                                          Weight: ='TextCanvas.Weight'.Semibold
+                                          Width: =Parent.Width
+                                          Y: =5
+                                    - Image9:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =Parent.Height *10/6
+                                          Image: |+
+                                            =First(BookingListGallery.Selected.'Pièces jointes').AbsoluteUri
+                                          ImagePosition: =ImagePosition.Center
+                                          Width: =Parent.Width * 9/5
+                                          X: =(Parent.Width - (Self.Width + 20 + Image9_1.Width)) / 2
+                                          Y: =(Parent.Height - Self.Height) / 2
+                                    - Image9_1:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =73
+                                          Image: |+
+                                            =Last(FirstN(BookingListGallery.Selected.'Pièces jointes', 2)).AbsoluteUri
+                                          ImagePosition: =ImagePosition.Center
+                                          Width: =Parent.Width *9/5
+                                          X: |+
+                                            =Image9.X + Image9.Width + 20
+                                          Y: =(Parent.Height - Self.Height) / 2
+                        - PopupStatus:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(44, 44, 44, 1)
+                              FillPortions: =0
+                              Height: =Parent.Height/6-Con_AllBookingPopupDetails.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Visible: =false
+                            Children:
+                              - ConPopupStatusImg:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =80
+                                  Children:
+                                    - PopupStatusImg:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =50
+                                          Image: =ImgStatus
+                                          PaddingBottom: =5
+                                          PaddingTop: =10
+                                          RadiusBottomLeft: =360
+                                          RadiusBottomRight: =360
+                                          RadiusTopLeft: =360
+                                          RadiusTopRight: =360
+                                          Width: =50
+                                          X: =(Parent.Width-Self.Width)/2
+                                          Y: =(Parent.Height-Self.Height)/2
+                              - ConPopupStatusInfo:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width-ConPopupStatusImg.Width
+                                  Children:
+                                    - LblPopupStatusInfo:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(252, 194, 27, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: ="Status"
+                                          Weight: ='TextCanvas.Weight'.Semibold
+                                          Width: =Parent.Width
+                                          Y: =5
+                                    - TxtPopupStatusInfo:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                          FontColor: =RGBA(255, 255, 255, 1)
+                                          Height: =Parent.Height/2
+                                          Size: =UX.Font.Normal + 2
+                                          Text: =VarRecord.BookingStatus.Value
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =Parent.Width
+                                          Y: =40
+      - Con_CarFilter_Dashboard:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(0, 0, 0, 0.83)
+            Height: =Parent.Height-Con_DashboardHeader.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =FilterPopup2
+            Width: =If(IsMobileLayout || IsTabletLayout,Parent.Width,Parent.Width-Cmp_SideNav_Dashboard.Width)
+            X: =If(IsMobileLayout,0, Cmp_SideNav_Dashboard.Width)
+            Y: =Con_DashboardHeader.Height
+          Children:
+            - Con_Filter_Dashboard:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(32, 32, 32, 1)
+                  Height: =600
+                  LayoutDirection: =LayoutDirection.Vertical
+                  Width: =If(IsMobileLayout,400, 500)
+                  X: = If(IsMobileLayout || IsTabletLayout,(Parent.Width-Self.Width)/2,(Parent.Width-Self.Width)/2)
+                  Y: = If(IsMobileLayout || IsTabletLayout,(Parent.Height-Self.Height)/2,(Parent.Height-Self.Height)/2)
+                Children:
+                  - Con_Filter_Dashboard_Header:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.Semilight
+                        FillPortions: =0
+                        Height: =80
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        PaddingLeft: =5
+                        PaddingRight: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - Con_Filter_Dashboard_HeaderBody:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              DropShadow: =DropShadow.None
+                              Height: =60
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width/1.9-Con_Filter_Dashboard_HeaderClose.Width
+                            Children:
+                              - Txt_Filter_Dashboard_HeaderBody:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    Align: ='TextCanvas.Align'.Start
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    FillPortions: =1
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    FontColor: =RGBA(252, 194, 27, 1)
+                                    PaddingLeft: =22
+                                    Size: =25
+                                    Text: ="Filter"
+                                    Weight: ='TextCanvas.Weight'.Semibold
+                        - Con_Filter_Dashboard_HeaderClose:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =60
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingRight: =10
+                              PaddingTop: =15
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =50
+                            Children:
+                              - Con_Filter_Dashboard_HeaderClose_Body:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.End
+                                    Fill: =RGBA(252, 194, 27, 1)
+                                    FillPortions: =0
+                                    Height: =30
+                                    RadiusBottomLeft: =360
+                                    RadiusBottomRight: =360
+                                    RadiusTopLeft: =360
+                                    RadiusTopRight: =360
+                                    Width: =30
+                                    X: =(Parent.Width-Self.Width)/2
+                                    Y: =(Parent.Width-Self.Width)/2
+                                  Children:
+                                    - Icon_Filter_Dashboard_HeaderClose_Body:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          Color: =RGBA(32, 32, 32, 1)
+                                          Height: =20
+                                          Icon: =Icon.Cancel
+                                          OnSelect: =UpdateContext({FilterPopup2:false})
+                                          Width: =20
+                                          X: =(Parent.Width-Self.Width)/2
+                                          Y: =(Parent.Height-Self.Height)/2
+                  - Con_Filter_Dashboard_Body:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        PaddingBottom: =10
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =10
+                      Children:
+                        - Con_Filter_Dashboard_Search:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height/5-Con_Filter_Dashboard_Body.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingLeft: =10
+                              PaddingRight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width-Con_Filter_Dashboard_Body.PaddingRight-Con_Filter_Dashboard_Body.PaddingLeft
+                            Children:
+                              - Lbl_Filter_Dashboard_Search:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    FontColor: =RGBA(255, 255, 255, 1)
+                                    Height: =40
+                                    Text: ="Search"
+                              - Txt_Filter_Dashboard_Search:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    Color: =Color.White
+                                    Default: =""
+                                    DelayOutput: =true
+                                    Fill: =RGBA(44, 44, 44, 1)
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    Height: =50
+                                    HintText: |-
+                                      ="🔍 Search By Keywords"
+                                    HoverBorderColor: =Color.White
+                                    HoverColor: =Self.Color
+                                    HoverFill: =Self.Fill
+                                    Size: =UX.Font.Normal - 2
+                        - Con_Filter_Dashboard_Purpose:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height/5-Con_Filter_Dashboard_Body.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingLeft: =10
+                              PaddingRight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width-Con_Filter_Dashboard_Body.PaddingRight-Con_Filter_Dashboard_Body.PaddingLeft
+                            Children:
+                              - Lbl_Filter_Dashboard_Purpose:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    FontColor: =RGBA(255, 255, 255, 1)
+                                    Height: =35
+                                    Text: ="Booking Purpose"
+                                    Visible: =false
+                              - Gallery_Filter_Dashboard_Purpose:
+                                  Control: Gallery@2.15.0
+                                  Variant: Horizontal
+                                  Properties:
+                                    Height: =Parent.Height
+                                    Items: =
+                                    LayoutMinHeight: =Parent.Height/5-Con_Filter_Dashboard_Body.LayoutGap-2
+                                    OnSelect: |-
+                                      =If(
+                                          Not(IsBlank(LookUp(SelectedBookingPurpose, Value = ThisItem.Value))),
+                                          // Item is already in the collection, so remove it
+                                          Remove(
+                                              SelectedBookingPurpose,
+                                              LookUp(SelectedBookingPurpose, Value = ThisItem.Value)
+                                          ),
+                                          // Item is not in the collection, so add it
+                                          Collect(
+                                              SelectedBookingPurpose,
+                                              ThisItem
+                                          )
+                                      )
+                                    ShowScrollbar: =false
+                                    TemplatePadding: =0
+                                    TemplateSize: =Parent.Width/3.4
+                                    Visible: =false
+                                    Width: =Parent.Width
+                                    Y: =227
+                                  Children:
+                                    - Btn_Gallery_Filter_Dashboard_Purpose:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          Color: =RGBA(255, 255, 255, 1)
+                                          Fill: |+
+                                            =If(
+                                                Not(IsBlank(LookUp(SelectedBookingPurpose, Value = ThisItem.Value))),
+                                                RGBA(0, 0, 0, 0.83), // If the item is in the collection, set this color
+                                                Parent.Fill // If the item is not in the collection, inherit the parent's fill color
+                                            )
+                                          Height: =47
+                                          HoverColor: =RGBA(255, 255, 255, 1)
+                                          HoverFill: =Btn_Gallery_Filter_Dashboard_Purpose.Fill
+                                          OnSelect: =Select(Parent)
+                                          PaddingBottom: =10
+                                          PaddingLeft: =If(IsMobileLayout,20, 10)
+                                          Size: =UX.Font.Small - 1
+                                          Text: =ThisItem.Value
+                                          Width: =If(IsMobileLayout,103,133)
+                                    - Circle_Gallery_Filter_Dashboard_Purpose:
+                                        Control: Circle@2.3.0
+                                        Properties:
+                                          Fill: |+
+                                            =If(
+                                                Not(IsBlank(LookUp(SelectedBookingPurpose, Value = ThisItem.Value))),
+                                                RGBA(252, 194, 27, 1), // Color if the item is in the collection
+                                                RGBA(44, 44, 44, 1)    // Color if the item is not in the collection
+                                            )
+                                          Height: =27
+                                          OnSelect: =Select(Parent)
+                                          Width: =27
+                                          X: =10
+                                          Y: =10
+                                    - Img_Gallery_Filter_Dashboard_Purpose:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =16
+                                          Image: =Switch(ThisItem.Value,"Meeting",ImgMeeting,"Official",ImgOfficial,"Interview",ImgInterview)
+                                          OnSelect: =Select(Parent)
+                                          Width: =16
+                                          X: =15
+                                          Y: =15
+                        - Con_Filter_Dashboard_DateRange:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height/5-Con_Filter_Dashboard_Body.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingBottom: =5
+                              PaddingLeft: =10
+                              PaddingRight: =10
+                              PaddingTop: =5
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width-Con_Filter_Dashboard_Body.PaddingRight-Con_Filter_Dashboard_Body.PaddingLeft
+                            Children:
+                              - Lbl_Con_Filter_Dashboard_DateRange:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    FontColor: =RGBA(255, 255, 255, 1)
+                                    Height: =35
+                                    Text: =" Booking Date From                         Booking Date To"
+                                    Visible: =false
+                                    Wrap: =false
+                              - Con_Filter_Dashboard_DateRange_Body:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =Parent.Height/2
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    PaddingBottom: =5
+                                    PaddingLeft: =5
+                                    PaddingRight: =5
+                                    PaddingTop: =5
+                                  Children:
+                                    - DatePickerFrom_Filter_Dashboard_DateRange:
+                                        Control: Classic/DatePicker@2.6.0
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =0
+                                          Color: =Color.White
+                                          DefaultDate: =
+                                          Fill: =RGBA(44, 44, 44, 1)
+                                          IconBackground: =ColorValue("#2C2C2C")
+                                          IconFill: =ColorValue("#FCC21B")
+                                          InputTextPlaceholder: =
+                                          PaddingLeft: =10
+                                          Visible: =false
+                                          Width: =Parent.Width/2-Con_Filter_Dashboard_DateRange_Body.LayoutGap
+                                    - DatePickerTo_Filter_Dashboard_DateRange:
+                                        Control: Classic/DatePicker@2.6.0
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =0
+                                          Color: =Color.White
+                                          DefaultDate: =
+                                          Fill: =RGBA(44, 44, 44, 1)
+                                          IconBackground: =ColorValue("#2C2C2C")
+                                          IconFill: =ColorValue("#FCC21B")
+                                          InputTextPlaceholder: =
+                                          Visible: =false
+                                          Width: =Parent.Width/2-Con_Filter_Dashboard_DateRange_Body.LayoutGap
+                        - Con_Filter_Dashboard_Status:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =Parent.Height/5-Con_Filter_Dashboard_Body.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Vertical
+                              PaddingLeft: =10
+                              PaddingRight: =10
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width-Con_Filter_Dashboard_Body.PaddingRight-Con_Filter_Dashboard_Body.PaddingLeft
+                            Children:
+                              - Lbl_Filter_Dashboard_Status:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    FontColor: =RGBA(255, 255, 255, 1)
+                                    Height: =35
+                                    Text: =
+                                    Visible: =false
+                              - Gallery_Filter_Dashboard_Status:
+                                  Control: Gallery@2.15.0
+                                  Variant: Horizontal
+                                  Properties:
+                                    Height: =Parent.Height
+                                    Items: =Choices('Booking List'.BookingStatus)
+                                    LayoutMinHeight: =Parent.Height/5-Con_Filter_Dashboard_Body.LayoutGap-2
+                                    OnSelect: |+
+                                      =If(
+                                          Not(IsBlank(LookUp(SelectedBookingStatus, Value = ThisItem.Value))),
+                                          // Item is already in the new collection, so remove it
+                                          Remove(
+                                              SelectedBookingStatus,
+                                              LookUp(SelectedBookingStatus, Value = ThisItem.Value)
+                                          );
+                                          ,
+                                          // Item is not in the new collection, so add it
+                                          Collect(
+                                              SelectedBookingStatus,
+                                              ThisItem
+                                          )
+                                      )
+                                    ShowScrollbar: =false
+                                    TemplatePadding: =0
+                                    TemplateSize: =Parent.Width/3.4
+                                    Visible: =false
+                                    Width: =Parent.Width
+                                    Y: =227
+                                  Children:
+                                    - Btn_Gallery_Filter_Dashboard_Status:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          Color: =RGBA(255, 255, 255, 1)
+                                          Fill: |+
+                                            =If(
+                                                Not(IsBlank(LookUp(SelectedBookingStatus, Value = ThisItem.Value))),
+                                                RGBA(0, 0, 0, 0.83), // If the item is in the collection, set this color
+                                                Parent.Fill // If the item is not in the collection, inherit the parent's fill color
+                                            )
+                                          Height: =47
+                                          HoverColor: =RGBA(255, 255, 255, 1)
+                                          HoverFill: =Btn_Gallery_Filter_Dashboard_Status.Fill
+                                          OnSelect: =Select(Parent)
+                                          PaddingBottom: =10
+                                          PaddingLeft: =If(IsMobileLayout,20, 10)
+                                          Size: =UX.Font.Small - 1
+                                          Text: =ThisItem.Value
+                                          Visible: =false
+                                          Width: =If(IsMobileLayout,103,133)
+                                    - Circle_Gallery_Filter_Dashboard_Status:
+                                        Control: Circle@2.3.0
+                                        Properties:
+                                          Fill: |+
+                                            =If(
+                                                Not(IsBlank(LookUp(SelectedBookingStatus, Value = ThisItem.Value))),
+                                                // Item is selected
+                                                If(
+                                                    ThisItem.Value = "Best Practice",
+                                                    RGBA(48, 194, 27, 1), // Color for "Booked"
+                                                    If(
+                                                        ThisItem.Value = "Negative Lesson",
+                                                        RGBA(251, 25, 25, 1), // Color for "Cancelled"
+                                                        Parent.Fill // Default color if the status is neither "Booked" nor "Cancelled"
+                                                    )
+                                                ),
+                                                // Item is not selected
+                                                RGBA(44, 44, 44, 1) // Default color when not selected
+                                            )
+                                          Height: =27
+                                          OnSelect: =Select(Parent)
+                                          Width: =27
+                                          X: =10
+                                          Y: =10
+                                    - Img_Gallery_Filter_Dashboard_Status:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          Height: =16
+                                          Image: =Switch(ThisItem.Value,"Best Practice",ImgMeeting,"Negative Lesson",ImgOfficial)
+                                          OnSelect: =Select(Parent)
+                                          Width: =16
+                                          X: =15
+                                          Y: =15
+                        - Con_Filter_Dashboard_Clear:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =Parent.Height/5-Con_Filter_Dashboard_Body.LayoutGap-2
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              PaddingRight: =10
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.Width-Con_Filter_Dashboard_Body.PaddingRight-Con_Filter_Dashboard_Body.PaddingLeft
+                            Children:
+                              - ButtonIgnore:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =0
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    Fill: =RGBA(252, 194, 27, 1)
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    Height: =60
+                                    HoverBorderColor: =
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(252, 194, 27, 1)
+                                    RadiusBottomLeft: =12
+                                    RadiusBottomRight: =12
+                                    RadiusTopLeft: =12
+                                    RadiusTopRight: =12
+                                    Size: =14
+                                    Text: ="Apply Filter"
+                                    Visible: =false
+                                    Width: =Parent.Width/2-Con_Filter_Dashboard_Clear.LayoutGap-Con_Filter_Dashboard_Clear.PaddingRight-Con_Filter_Dashboard_Clear.PaddingLeft
+                              - Btn_Con_Filter_Dashboard_Clear:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: ='ButtonCanvas.Appearance'.Outline
+                                    BorderColor: =RGBA(252, 194, 27, 1)
+                                    BorderRadiusBottomLeft: =12
+                                    BorderRadiusBottomRight: =12
+                                    BorderRadiusTopLeft: =12
+                                    BorderRadiusTopRight: =12
+                                    FillPortions: =1
+                                    Font: ="Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif"
+                                    FontColor: =RGBA(255, 255, 255, 1)
+                                    FontSize: =15
+                                    Height: =60
+                                    Icon: =
+                                    IconStyle: ='ButtonCanvas.IconStyle'.Filled
+                                    OnSelect: |
+                                      =
+                                      //Reset(TextInput2_2);
+                                      Reset(Txt_Filter_Dashboard_Search);
+                                      Reset(DatePickerFrom_Filter_Dashboard_DateRange);
+                                      Reset(DatePickerTo_Filter_Dashboard_DateRange);
+                                      // Populate SelectedBookingPurpose with default options from the BookingPurpose choice column
+
+
+                                      // Populate SelectedBookingStatus with default options from the BookingStatus choice column
+                                      ClearCollect(
+                                          SelectedBookingStatus,
+                                          Choices('Booking List'.BookingStatus)
+                                      );
+                                    Text: ="Clear Filter"
+                                    Width: =Parent.Width/2-Con_Filter_Dashboard_Clear.LayoutGap-Con_Filter_Dashboard_Clear.PaddingRight-Con_Filter_Dashboard_Clear.PaddingLeft
+      - Cmp_Booking_Confirmation:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(0, 0, 0, 0.92)
+            Height: =Parent.Height-Con_DashboardHeader.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: '= ConfirmationPopup       '
+            Width: =If(IsMobileLayout || IsTabletLayout,Parent.Width,Parent.Width-Cmp_SideNav_Dashboard.Width)
+            X: =If(IsMobileLayout,0, Cmp_SideNav_Dashboard.Width)
+            Y: =Con_DashboardHeader.Height
+      - Cmp_loader_Dashboard:
+          Control: CanvasComponent
+          ComponentName: Cmp_loader
+          Properties:
+            Fill: =RGBA(0, 0, 0, 0.22)
+            Height: =Max(App.Height, App.MinScreenHeight)
+            Visible: =ShowLoader
+            Width: =Max(App.Width, App.MinScreenWidth)
+      - Cmp_SideNav_Dashboard:
+          Control: CanvasComponent
+          ComponentName: Cmp_SideNav
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            CurrentIndicatorColor: =RGBA(252, 194, 27, 1)
+            Default: ="Dashboard"
+            DisabledColor: =RGBA(89, 89, 89, 1)
+            Fill: =RGBA(32, 32, 32, 1)
+            Height: =Max(App.Height, App.MinScreenHeight) - Con_DashboardHeader.Height
+            HoverFill: =RGBA(0, 0, 0, 1)
+            SelectedFill: =RGBA(44,44, 44, 1)
+            SidebarItems: |+
+              =Filter(
+                  Table(
+                      {Value: "Home", Icon: mm, IconSelected: mm, Screen: Home1, RequiresAdmin: false},
+                      {Value: "Projects", Icon: projects, IconSelected: ImgHistorySelected, Screen: AI, RequiresAdmin: false},
+                      {Value: "LL by PROJECT", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Booking, RequiresAdmin: false},
+                      {Value: "Add LL by PROJECT", Icon: ImgCarDisabled, IconSelected: ImgCarSelected, Screen: Create, RequiresAdmin: true},
+                      {Value: "Processes", Icon: img1, IconSelected: ImgCreateSelected, Screen: proo, RequiresAdmin: false},
+                      {Value: "Fault catalog", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Bookingp, RequiresAdmin: false},
+                      {Value: "Add LL by PROCESS", Icon: addlesson, IconSelected: ImgCarSelected, Screen: Createp, RequiresAdmin: true}
+                  ),
+                  // La condition de filtrage :
+                  !RequiresAdmin || (RequiresAdmin && !IsBlank(CurrentUser) && IsAdminUser)
+              )
+            Visible: =!IsMobileLayout || !IsTabletLayout
+            Width: =100
+            Y: =Con_DashboardHeader.Height
+      - Cmp_Restrict_Users_Dashboard:
+          Control: CanvasComponent
+          ComponentName: Cmp_Restrict_Users
+          Properties:
+            Fill: =RGBA(44, 44, 44, 1)
+            Height: =Max(App.Height, App.MinScreenHeight) - Con_DashboardHeader.Height
+            Visible: =If(isAdmin,false,true)
+            Width: =If(IsMobileLayout,Max(App.Width, App.MinScreenWidth), Max(App.Width, App.MinScreenWidth) - Cmp_SideNav_Dashboard.Width)
+            X: =If(IsMobileLayout,0,Cmp_SideNav_Dashboard.Width)
+            Y: =Con_DashboardHeader.Height
+      - Cmp_SideNav_Mobile_Dashboard:
+          Control: CanvasComponent
+          ComponentName: Cmp_SideNav_Mobile
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            CurrentIndicatorColor: =RGBA(252, 194, 27, 1)
+            Default: ="Dashboard"
+            DisabledColor: =RGBA(89, 89, 89, 1)
+            Fill: =RGBA(32, 32, 32, 1)
+            Height: =77
+            HoverFill: =RGBA(0, 0, 0, 1)
+            SelectedFill: =RGBA(44,44, 44, 1)
+            SidebarItems: |+
+              =Filter(
+                  Table(
+                      {Value: "Home", Icon: mm, IconSelected: mm, Screen: Home1, RequiresAdmin: false},
+                      {Value: "Projects", Icon: projects, IconSelected: ImgHistorySelected, Screen: AI, RequiresAdmin: false},
+                      {Value: "LL by risk analysis", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Booking, RequiresAdmin: false},
+                      {Value: "Add LL by risk analysis", Icon: ImgCarDisabled, IconSelected: ImgCarSelected, Screen: Create, RequiresAdmin: true},
+                      {Value: "Processes", Icon: img1, IconSelected: ImgCreateSelected, Screen: proo, RequiresAdmin: false},
+                      {Value: "Fault catalog", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Bookingp, RequiresAdmin: false},
+                      {Value: "Add Lesson by process", Icon: addlesson, IconSelected: ImgCarSelected, Screen: Createp, RequiresAdmin: true}
+                  ),
+                  // La condition de filtrage :
+                  !RequiresAdmin || (RequiresAdmin && !IsBlank(CurrentUser) && IsAdminUser)
+              )
+            Visible: =IsMobileLayout
+            Width: =Max(App.Width, App.MinScreenWidth)
+            Y: =Parent.Height - Self.Height
+      - ButtonCanvas5:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            Height: =34
+            OnSelect: |+
+              =Set(CurrentUser, Blank());
+              Set(IsAdminUser, false);
+              Navigate(HomeScreen, ScreenTransition.Fade);
+            Text: ="✖️Logout"
+            Visible: |+
+              =!IsBlank(CurrentUser)
+            Width: =73
+            X: =15
+            Y: =15
+      - ButtonCanvas1_9:
+          Control: Button@0.0.45
+          Properties:
+            BasePaletteColor: =RGBA(189, 178, 176, 1)
+            BorderColor: =RGBA(255, 191, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            Height: =48
+            OnSelect: |
+              =Launch("https://takwahafyen-model2.hf.space")
+            PaddingTop: =10
+            Text: |-
+              ="📷Using AI"
+            Width: =128
+            X: =344
+            Y: =15

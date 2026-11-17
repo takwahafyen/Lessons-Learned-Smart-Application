@@ -1,0 +1,40 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+EditorState:
+  ScreensOrder:
+    - Booking
+    - Bookingp
+    - Dashboard
+    - Process
+    - Create
+    - Createp
+    - proo
+    - AI
+    - Home1
+    - info11
+    - info2
+    - info33
+    - info4
+    - signin
+    - signup
+    - Screen1
+    - takwa
+    - HomeScreen
+    - Confirm Registration
+    - Reset Password
+    - Dashboard_1
+  ComponentDefinitionsOrder:
+    - Cmp_SideNav
+    - Cmp_SideNav_Mobile
+    - Cmp_Header
+    - Cmp_loader
+    - Cmp_Validation
+    - Cmp_Search_Car
+    - Cmp_Search_Confirmation
+    - Cmp_Restrict_Users

@@ -1,0 +1,136 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Dashboard_1:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |-
+        =ClearCollect(
+            Menu,
+            {
+                Name: "Log in",
+                Value: 1
+            },
+            {
+                Name: "Register",
+                Value: 2
+            },
+            {
+                Name: "Forgot Password",
+                Value: 3
+            }
+        );
+        ClearCollect(
+            CustomIcon2,
+            {
+                IconName: "Eye",
+                IconData: "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-eye' viewBox='0 0 16 16'>
+          <path d='M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z'/>
+          <path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/>
+        </svg>"
+            }
+        );
+        Set(
+            IconColor,
+            "RGBA(179, 179, 179, 1)"
+        );
+        Set(
+            gblShowErrorImage,
+            false
+        );
+        Set(
+            gblShowLoginErrorIcon,
+            false
+        );
+        Clear(colCheckCapitalLetters);
+        Clear(colCheckNumbers);
+        Clear(colCheckSmallLetters);
+        Clear(colCheckSymbol);
+        Set(
+            locPasswordError,
+            false
+        );
+        Set(
+            gblBlankEntry,
+            false
+        );
+    Children:
+      - Container8:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =ColorFade( RGBA(22, 255, 89, 1), 90%)
+            Height: =768
+            Width: =1366
+          Children:
+            - Gallery4:
+                Control: Gallery@2.15.0
+                Variant: BrowseLayout_Vertical_OneTextVariant_ver5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Height: =281
+                  Items: =colCaps
+                  TemplateSize: =30
+                  Width: =729
+                  WrapCount: =5
+                  X: =582
+                  Y: =74
+                Children:
+                  - Title4:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(50, 49, 48, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                        Height: =Self.Size * 1.8
+                        OnSelect: =Select(Parent)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: =ThisItem.Value
+                        VerticalAlign: =VerticalAlign.Top
+                        Width: =Parent.TemplateWidth - 86
+            - HtmlText1:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =411
+                  HtmlText: |-
+                    ="<div style='background-color: #f5f5f5; width: 650px; height: 400px; border: 2px solid black; padding-bottom: 30px; font-weight:600; color: #0c5c00'>
+                        <div style='background-color: #638b2c ;  height: 60px; text-align: center; color: #f5f5f5; font-weight: 900; padding: 15px;font-size:2em; font-family: Trebuchet MS'>
+                          APPLICATION REGISTRATION
+                        </div>
+                        <div style='font-size:2em; font-family: Trebuchet MS; padding: 20px; background-color:#f5f5f5; color: #057f3f'><br> Hello " & txtFullName.Text & ",<br><br> Please complete your account registration using the code below. 
+                         <div style='background-color: #f5f5f5;  ; height: 60px; text-align: center; color: #057f3f; font-weight: 900; padding: 15px;font-size:2em; font-family: Trebuchet MS'>
+                          " & RandBetween(
+                        11111,
+                        99999
+                    ) & "
+                        </div>
+                    </div>
+                      </div>"
+                  Width: =661
+                  X: =342
+                  Y: =164
+            - HtmlText1_20:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =120
+                  HtmlText: |-
+                    ="<div style= 'padding:5px;height:60px; width: "&Parent.Width &"px;  text-align:center; font-size:3em; font-family: Trebuchet MS; font-weight:900'>User Dashboard</div>"
+                  PaddingBottom: =0
+                  PaddingTop: =10
+                  Width: =1366

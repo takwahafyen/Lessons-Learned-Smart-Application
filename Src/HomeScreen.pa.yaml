@@ -1,0 +1,2082 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  HomeScreen:
+    Properties:
+      Fill: =RGBA(0, 0, 0, 0)
+      ImagePosition: =ImagePosition.Tile
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |
+        =ClearCollect(
+            Menu,
+            [
+                {Name: "Log in"},
+                {Name: "Register"},
+                {Name: "Forgot Password"}
+            ]
+        );
+        Set(
+            gblShowErrorImage,
+            false
+        );
+        Set(
+            gblShowLoginErrorIcon,
+            false
+        );
+        Clear(colCheckCapitalLetters);
+        Clear(colCheckNumbers);
+        Clear(colCheckSmallLetters);
+        Clear(colCheckSymbol);
+        Set(
+            locPasswordError,
+            false
+        );
+        Set(
+            gblBlankEntry,
+            false
+        );
+    Children:
+      - Container1:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =Color.Transparent//ColorFade( RGBA(22, 255, 89, 1), 90%)//RGBA(255, 255, 255, 1)//RGBA(250, 250, 250, 1)
+            Height: =768
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =15
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =1365
+          Children:
+            - Container11:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =10
+                  DropShadow: =DropShadow.Bold
+                  Fill: =Color.Transparent
+                  FillPortions: =0
+                  Height: =720
+                  LayoutMinWidth: =650
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Width: =650
+                  X: =40
+                  Y: =40
+                Children:
+                  - Image2_2:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Height: =718
+                        Image: =aaa
+                        ImagePosition: =ImagePosition.Fill
+                        Width: =650
+                  - Gallery8:
+                      Control: Gallery@2.15.0
+                      Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+                      Properties:
+                        BorderColor: =RGBA(245, 245, 245, 1)
+                        Fill: =Color.Transparent
+                        Height: =260
+                        Items: =Menu
+                        LoadingSpinner: =LoadingSpinner.None
+                        OnSelect: "=Switch(\n    ThisItem.Name,\n    \"Log in\",\n    UpdateContext({locPasswordError: false});\n    Set(\n        gblBlankEntry,\n        false\n    ),\n    \"Register\",\n    UpdateContext({locUsernameError: false});\n    UpdateContext({locPasswordError: false});\n    \n)\n/*\nUpdateContext({locPasswordError: false});\n    Set(\n        gblBlankEntry,\n        false\n    )\nUpdateContext({locUsernameError: false});\nUpdateContext({locPasswordError: false});\n*/"
+                        TemplateSize: =84
+                        Transition: =Transition.Pop
+                        Width: =439
+                        X: =115
+                        Y: =311
+                      Children:
+                        - Button8_2:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: |-
+                                =//ColorFade( Self.Fill, -20%)
+                                Switch(
+                                    ThisItem.Name,
+                                    "Log in",
+                                    ColorFade( Self.Fill, -20%),
+                                    "Register",
+                                    Color.White,
+                                    "Forgot Password",
+                                    Self.Fill//Color.White
+                                )
+                              BorderThickness: =1
+                              Color: |-
+                                =ColorFade(
+                                    Switch(
+                                        ThisItem.Name,
+                                        "Log in",
+                                        Color.White,
+                                        "Register",
+                                        Color.White,
+                                        "Forgot Password",
+                                        Color.White
+                                    ),
+                                    10%
+                                )
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              Fill: |-
+                                =ColorFade(
+                                    Switch(
+                                        ThisItem.Name,
+                                        "Log in",
+                                        RGBA(0, 51, 140, 1), 
+                                        "Register",
+                                        RGBA(102, 178, 255, 1), 
+                                        "Forgot Password",
+                                          RGBA(56, 96, 178, 1),
+                                           "Home",
+                                        RGBA(0, 51, 140, 1)
+                                    ),
+                                    -10%
+                                )
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Open Sans'
+                              Height: =55
+                              HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+                              HoverColor: =ColorFade(Self.Color, -10%)
+                              HoverFill: =ColorFade(Self.Fill, -10%)
+                              OnSelect: =Select(Parent)
+                              PressedBorderColor: =ColorFade(Self.BorderColor, -20%)
+                              PressedColor: =ColorFade(Self.Color, -10%)
+                              PressedFill: =ColorFade(Self.Fill, -20%)
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Size: =16
+                              Text: =ThisItem.Name
+                              Width: =380
+                              X: =32
+                              Y: =25
+                  - HtmlText1_8:
+                      Control: HtmlViewer@2.1.0
+                      Properties:
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =221
+                        HtmlText: |-
+                          ="<div style= 'padding:15px;height:100px; width: "&Parent.Width &"px;  text-align:center; font-size:4.5em; font-family: Trebuchet MS; font-weight:900'>Menu</div>" //🙂
+                        Width: =650
+                  - RegisterTimer:
+                      Control: Timer@2.1.0
+                      Properties:
+                        AutoPause: =false
+                        BorderColor: =RGBA(0, 120, 212, 1)
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(242, 242, 241, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Duration: =3000
+                        Fill: =RGBA(0, 120, 212, 1)
+                        Font: =Font.'Segoe UI'
+                        HoverBorderColor: =RGBA(16, 110, 190, 1)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(16, 110, 190, 1)
+                        OnTimerEnd: =Set(gblShowErrorImage, false)
+                        PressedBorderColor: =RGBA(16, 110, 190, 1)
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(16, 110, 190, 1)
+                        Start: =gblShowErrorImage
+                        Visible: =false
+                        X: =490
+                        Y: =678
+                  - ButtonCanvas1_1:
+                      Control: Button@0.0.45
+                      Properties:
+                        Appearance: ='ButtonCanvas.Appearance'.Primary
+                        DisplayMode: |-
+                          =If(
+                              Len(txtConfirmPassword.Text) < 14 And (CountRows(
+                                  Filter(
+                                      colCheckNumbers,
+                                      Value
+                                  )
+                              ) = 0 || CountRows(
+                                  Filter(
+                                      colCheckCapitalLetters,
+                                      Value
+                                  )
+                              ) = 0 || CountRows(
+                                  Filter(
+                                      colCheckSmallLetters,
+                                      Value
+                                  )
+                              ) = 0 || CountRows(
+                                  Filter(
+                                      colCheckSymbol,
+                                      Value
+                                  )
+                              ) = 0),
+                              DisplayMode.Disabled,
+                              DisplayMode.Edit
+                          )
+                        Height: =60
+                        OnSelect: |
+                          =// Vérifie si tous les champs obligatoires sont remplis
+                          Set(
+                              gblBlankEntry,
+                              IsBlank(txtFullName.Text) || IsBlank(txtUsername.Text) || IsBlank(txtPassword.Text) || IsBlank(txtEmailAddress.Text)
+                          );
+
+                          // Vérifie s’il y a des chiffres
+                          ClearCollect(
+                              colCheckNumbers,
+                              ForAll(
+                                  Split(txtConfirmPassword.Text, ""),
+                                  If(IsMatch(Value, "[0-9]"), Value)
+                              )
+                          );
+
+                          // Vérifie s’il y a des majuscules
+                          ClearCollect(
+                              colCheckCapitalLetters,
+                              ForAll(
+                                  Split(txtConfirmPassword.Text, ""),
+                                  If(IsMatch(Value, "[A-Z]"), Value)
+                              )
+                          );
+
+                          // Vérifie s’il y a des minuscules
+                          ClearCollect(
+                              colCheckSmallLetters,
+                              ForAll(
+                                  Split(txtConfirmPassword.Text, ""),
+                                  If(IsMatch(Value, "[a-z]"), Value)
+                              )
+                          );
+
+                          // Vérifie s’il y a des symboles spéciaux
+                          ClearCollect(
+                              colCheckSymbol,
+                              ForAll(
+                                  Split(txtConfirmPassword.Text, ""),
+                                  If(IsMatch(Value, "[@,#,$,%,&,?,>,<,!]"), Value)
+                              )
+                          );
+
+                          // Détermine si le mot de passe est invalide
+                          UpdateContext(
+                              {
+                                  locPasswordError:
+                                      CountRows(colCheckNumbers) = 0 ||
+                                      CountRows(colCheckCapitalLetters) = 0 ||
+                                      CountRows(colCheckSmallLetters) = 0 ||
+                                      CountRows(colCheckSymbol) = 0
+                              }
+                          );
+
+                          // Si tout est correct, enregistre les données
+                          If(
+                              !locPasswordError && !gblBlankEntry,
+                              Patch(
+                                  LoginDemo,
+                                  Defaults(LoginDemo),
+                                  {
+                                      Titre: txtFullName.Text,
+                                      UserName: txtUsername.Text,
+                                      EmailAddress: txtEmailAddress.Text,
+                                      Password: txtConfirmPassword.Text
+                                  }
+                              );
+                              UpdateContext({locPasswordError: false})
+                          );
+
+                          // Affiche les messages d’erreur ou de succès
+                          If(
+                              locPasswordError,
+                              Notify(
+                                  "Password must contain uppercase, lowercase, numbers, and special characters (@,#,$,%,&,?,>,<,!)",
+                                  NotificationType.Error,
+                                  3000
+                              );
+                              Set(gblShowErrorImage, true)
+                          );
+
+                          If(
+                              gblBlankEntry,
+                              Notify("All fields are required", NotificationType.Error, 3000);
+                              Set(gblShowErrorImage, true)
+                          );
+
+                          If(
+                              !locPasswordError && !gblBlankEntry,
+                              Notify("Registration Successful", NotificationType.Success, 3000)
+                          );
+
+                          // Réinitialise les champs si tout est correct
+                          If(
+                              !locPasswordError && !gblBlankEntry,
+                              Reset(txtFullName);
+                              Reset(txtUsername);
+                              Reset(txtPassword);
+                              Reset(txtEmailAddress);
+                              Reset(txtConfirmPassword);
+                              Clear(colCheckCapitalLetters);
+                              Clear(colCheckNumbers);
+                              Clear(colCheckSmallLetters);
+                              Clear(colCheckSymbol)
+                          );
+                        Text: ="Register"
+                        Visible: =false
+                        Width: =500
+                        X: =54
+                        Y: =588
+                  - Label13:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        Color: =RGBA(50, 49, 48, 1)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        FocusedBorderThickness: =4
+                        Font: =Font.'Segoe UI'
+                        Height: =56
+                        Text: =gblShowLoginErrorIcon
+                        Width: =139
+                        X: =137
+                        Y: =662
+                  - Label13_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        Color: =RGBA(50, 49, 48, 1)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        FocusedBorderThickness: =4
+                        Font: =Font.'Segoe UI'
+                        Height: =56
+                        Text: =locPasswordError
+                        Width: =139
+                        X: =234
+                        Y: =662
+                  - LoginTimer:
+                      Control: Timer@2.1.0
+                      Properties:
+                        AutoPause: =false
+                        BorderColor: =RGBA(0, 120, 212, 1)
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(242, 242, 241, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Duration: =3000
+                        Fill: =RGBA(0, 120, 212, 1)
+                        Font: =Font.'Segoe UI'
+                        HoverBorderColor: =RGBA(16, 110, 190, 1)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(16, 110, 190, 1)
+                        OnTimerEnd: =Set(gblShowLoginErrorIcon, false)
+                        PressedBorderColor: =RGBA(16, 110, 190, 1)
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(16, 110, 190, 1)
+                        Start: =gblShowLoginErrorIcon
+                        Visible: =false
+                        Y: =678
+                  - ConCreateBookingNextBtn_21:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =Self.Fill
+                        DisabledColor: =Self.Fill
+                        DisabledFill: =Self.Fill
+                        Fill: =RGBA(62, 128, 149, 1)
+                        Font: =Font.Georgia
+                        FontWeight: =FontWeight.Normal
+                        Height: =55
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =Self.Fill
+                        OnSelect: =Navigate(Home1)
+                        PressedFill: =Self.Fill
+                        Size: =If(IsMobileLayout,10, 16)
+                        Text: ="Home"
+                        Width: =380
+                        X: =147
+                        Y: =593
+                  - Cmp_Header_Image_2:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Height: =120
+                        Image: ='Design_sans_titre__8_-removebg-preview'
+                        ImagePosition: =ImagePosition.Fill
+                        RadiusBottomLeft: =50
+                        RadiusBottomRight: =50
+                        RadiusTopLeft: =50
+                        RadiusTopRight: =50
+                        Width: =346
+                        X: =147
+                        Y: =183
+            - Container10:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  BorderColor: =RGBA(99, 139, 44, 1)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =1
+                  DropShadow: =
+                  Fill: =RGBA(0, 0, 0, 1)
+                  FillPortions: =0
+                  Height: =720
+                  LayoutMinWidth: =650
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Width: =650
+                  X: =663
+                  Y: =40
+                Children:
+                  - Image2_3:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        Height: =718
+                        Image: ='Create a high-tech, futuristic background for a web application''s right side. The design should have a dark blue to black gradient background with glowing neon blue lines and nodes forming a digital network mesh, in'
+                        ImagePosition: =ImagePosition.Fill
+                        Width: =650
+                        Y: =2
+                  - Container12:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        DropShadow: =DropShadow.Regular
+                        Fill: |+
+                          =RGBA(0, 0, 0, 0)
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Visible: =If(Gallery8.Selected.Name = "Log in", true, false)
+                        Width: =650
+                      Children:
+                        - HtmlText1_13:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Start
+                              DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =70
+                              HtmlText: |-
+                                ="<div style= 'padding:5px;height:45px; width: "&Parent.Width &"px;  text-align:center; font-size:3em; font-family: Trebuchet MS; font-weight:950 ;color:white;'>Login</div>"
+                              LayoutMinHeight: =30
+                              PaddingBottom: =0
+                              Width: =650
+                        - Label20:
+                            Control: Label@2.5.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =15
+                              Text: ="Username"
+                              Width: =550
+                        - txtLoginUsername:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(txtLoginUsername.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              BorderThickness: =1
+                              Color: =RGBA(113, 111, 110, 1)
+                              Default: =""
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              FocusedBorderThickness: =2
+                              Font: =Font.Verdana
+                              Height: =50
+                              HoverBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(txtLoginUsername.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinWidth: =50
+                              PressedBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(txtLoginUsername.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              Size: =11
+                              Width: =550
+                        - Label21:
+                            Control: Label@2.5.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =15
+                              Text: ="Password"
+                              Width: =550
+                        - Container14_1:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =55
+                              LayoutMinWidth: =600
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Width: =555
+                            Children:
+                              - txtLoginPassword:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: |-
+                                      =If(
+                                          locPasswordError And IsBlank(txtLoginUsername.Text),
+                                          Color.Red,
+                                          If(
+                                              locPasswordError || locNumberofCaps || locPasswordCount,
+                                              Color.Red,
+                                              RGBA(99, 139, 44, 1)
+                                          )
+                                      )
+                                    BorderThickness: =1
+                                    Color: =RGBA(113, 111, 110, 1)
+                                    Default: =""
+                                    DisabledBorderColor: |-
+                                      =//If(locPasswordError, Color.Red, RGBA(219, 219, 219, 1))
+                                      If(
+                                          locPasswordError,
+                                          Color.Red,
+                                          If(
+                                              gblBlankEntry And locPasswordError = false And IsBlank(txtLoginPassword.Text),
+                                              Color.Red,
+                                              RGBA(
+                                                  219,
+                                                  219,
+                                                  219,
+                                                  1
+                                              )
+                                          )
+                                      )
+                                    DisabledColor: =RGBA(50, 49, 48, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: |-
+                                      =DisplayMode.Edit
+                                      /*If(
+                                          IsBlank(FullName.Text) || IsBlank(Username.Text) || IsBlank(SecurityQuestion.Text) || IsBlank(Answer.Text),
+                                          DisplayMode.Disabled,
+                                          DisplayMode.Edit
+                                      )*/
+                                    FocusedBorderThickness: =2
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =50
+                                    HoverBorderColor: |-
+                                      =If(
+                                          locPasswordError And IsBlank(txtLoginUsername.Text),
+                                          Color.Red,
+                                          If(
+                                              locPasswordError,
+                                              Color.Red,
+                                              RGBA(99, 139, 44, 1)
+                                          )
+                                      )
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    Mode: =If(EditMode, TextMode.SingleLine, TextMode.Password)
+                                    PressedBorderColor: |-
+                                      =If(
+                                          locPasswordError And IsBlank(txtLoginUsername.Text),
+                                          Color.Red,
+                                          If(
+                                              locPasswordError,
+                                              Color.Red,
+                                              RGBA(99, 139, 44, 1)
+                                          )
+                                      )
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    Size: =11.5
+                                    Width: =550
+                                    X: =2
+                                    Y: =2
+                              - Label3_4:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(202, 202, 202, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =55
+                                    Size: =11
+                                    Text: =If(Len(txtLoginPassword.Text) > 14, "", 14 - Len(txtLoginPassword.Text))
+                                    Width: =50
+                                    X: =451
+                              - Image7_2:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(219, 219, 219, 1)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =1
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =55
+                                    HoverBorderColor: =RGBA(219, 219, 219, 1)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Image: |-
+                                      ="data:image/svg+xml;utf8, " & EncodeUrl(
+                                          Substitute(
+                                              LookUp(
+                                                  CustomIcon2,
+                                                  IconName = "Eye"
+                                              ).IconData,
+                                              "currentColor",
+                                              IconColor
+                                          )
+                                      )
+                                    ImagePosition: =ImagePosition.Center
+                                    OnSelect: =Set(EditMode, !EditMode)
+                                    PaddingBottom: =5
+                                    PaddingLeft: =5
+                                    PaddingRight: =5
+                                    PaddingTop: =5
+                                    PressedBorderColor: =RGBA(219, 219, 219, 1)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    RadiusBottomLeft: =5
+                                    RadiusBottomRight: =5
+                                    RadiusTopLeft: =5
+                                    RadiusTopRight: =5
+                                    Width: =49
+                                    X: =501
+                                    Y: =1
+                        - HtmlText1_12:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =85
+                              HtmlText: |-
+                                =If(
+                                    gblShowLoginErrorIcon, "<div style= 'padding:5px;height:60px; width: " & Parent.Width & "px;  text-align:center; font-size:4em; font-family: Trebuchet MS; font-weight:300'>☹️</div>",
+                                    ""
+                                )
+                              PaddingBottom: =0
+                              PaddingTop: =0
+                              Visible: |-
+                                =If(
+                                    gblShowLoginErrorIcon,
+                                    true,
+                                    false
+                                )
+                              Width: =650
+                        - btnConfirmLogin:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =Self.Fill
+                              BorderStyle: =BorderStyle.None
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =ColorFade(Self.Fill, -10%)
+                              DisabledColor: =RGBA(255, 255, 255, 1)
+                              DisabledFill: =ColorFade(Self.Fill, 20%)
+                              DisplayMode: |-
+                                =If(
+                                    IsBlank(txtLoginPassword.Text) || IsBlank(txtLoginUsername.Text) || Len(txtLoginPassword.Text) < 14,
+                                    DisplayMode.Disabled,
+                                    DisplayMode.Edit
+                                )
+                              Fill: =RGBA(15, 108, 189, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =55
+                              HoverBorderColor: =ColorFade(Self.Fill, -10%)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =ColorFade(Self.Fill, -10%)
+                              OnSelect: |-
+                                =Set(
+                                    gblCheckPasswordInSharepoint,
+                                    LookUp(
+                                        LoginDemo,
+                                        UserName = txtLoginUsername.Text
+                                    ).Password
+                                );
+                                Set(
+                                    gblCapsInSharepointPasswords,
+                                    ClearCollect(
+                                        colCaps,
+                                        ForAll(
+                                            Split(
+                                                gblCheckPasswordInSharepoint,
+                                                ""
+                                            ),
+                                            If(
+                                                IsMatch(
+                                                    Value,
+                                                    "[A-Z]"
+                                                ),
+                                                Value,
+                                                ""
+                                            )
+                                        )
+                                    );
+                                    Concat(
+                                        colCaps,
+                                        Value,
+                                        ""
+                                    )
+                                );
+                                Set(
+                                    gblCapsInUserPassword,
+                                    ClearCollect(
+                                        colCaps,
+                                        ForAll(
+                                            Split(
+                                                txtLoginPassword.Text,
+                                                ""
+                                            ),
+                                            If(
+                                                IsMatch(
+                                                    Value,
+                                                    "[A-Z]"
+                                                ),
+                                                Value,
+                                                ""
+                                            )
+                                        )
+                                    );
+                                    Concat(
+                                        colCaps,
+                                        Value,
+                                        ""
+                                    )
+                                );
+                                UpdateContext(
+                                    {
+                                        locUsernameError: IsBlank(
+                                            LookUp(
+                                                LoginDemo,
+                                                UserName = txtLoginUsername.Text
+                                            ).UserName
+                                        )
+                                    }
+                                );
+                                UpdateContext({locNumberofCaps: gblCapsInUserPassword <> gblCapsInSharepointPasswords}); 
+                                UpdateContext({locPasswordCount: Len(txtLoginPassword.Text) <> Len(gblCheckPasswordInSharepoint)});
+                                UpdateContext({locBlankPassword: IsBlank(gblCheckPasswordInSharepoint)});
+                                UpdateContext({locPasswordError: locBlankPassword || (locPasswordCount And locNumberofCaps)});
+
+                                If(
+                                    locUsernameError,
+                                    Notify(
+                                        "Wrong username. Please try again",
+                                        NotificationType.Error,
+                                        3000
+                                    );
+                                    Set(
+                                        gblShowLoginErrorIcon,
+                                        true
+                                    ),
+                                    If(
+                                        locPasswordError || locNumberofCaps || locPasswordCount,
+                                        Notify(
+                                            "Wrong password. Please try again",
+                                            NotificationType.Error,
+                                            3000
+                                        );
+                                        Set(
+                                            gblShowLoginErrorIcon,
+                                            true
+                                        )
+                                    )
+                                );
+                                If(
+                                    locPasswordError || locUsernameError || locNumberofCaps || locPasswordCount,
+                                    false,
+                                    If(
+                                        locPasswordError = false And locUsernameError = false And locNumberofCaps = false And locPasswordCount = false,
+                                        Navigate(
+                                            Booking,
+                                            ScreenTransition.Fade
+                                        );
+                                        Notify(
+                                            "Login Successful",
+                                            NotificationType.Success,
+                                            2000
+                                        );
+                                        Set(
+                                            CurrentUser,
+                                            LookUp(
+                                                LoginDemo,
+                                                UserName = txtLoginUsername.Text
+                                            )
+                                        );
+                                        Set(
+                                    IsAdminUser,
+                                    CurrentUser.IsAdmin
+                                );
+                                        Set(
+                                            ThisSession,
+                                            Patch(
+                                                LoginRecords,
+                                                Defaults(LoginRecords),
+                                                {
+                                                    User: CurrentUser.UserName,
+                                                    LoginTime: Now()
+                                                }
+                                            )
+                                        );
+                                        Reset(txtLoginPassword);
+                                        Reset(txtLoginUsername);
+                                    )
+                                );
+                              PressedBorderColor: =ColorFade(Self.Fill, -10%)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =ColorFade(Self.Fill, -20%)
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Size: =16
+                              Text: ="Login"
+                              Tooltip: =If(IsBlank(txtLoginPassword.Text) || IsBlank(txtLoginUsername.Text), "All fields are required")
+                              Width: =550
+                  - Register:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =8
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Visible: =If(Gallery8.Selected.Name = "Register", true, false)
+                        Width: =Parent.Width
+                      Children:
+                        - HtmlText1_10:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =70
+                              HtmlText: |-
+                                ="<div style= 'padding:5px;height:45px; width: "&Parent.Width &"px;  text-align:center; font-size:3em; font-family: Trebuchet MS; font-weight:900;color:white;'>Register</div>"
+                              LayoutMinHeight: =65
+                              PaddingBottom: =0
+                              Width: =650
+                        - Label20_4:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Verdana
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =11
+                              Text: ="Code"
+                              Visible: =false
+                              Width: =600
+                        - HtmlText1_14:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =87
+                              HtmlText: |-
+                                =If(
+                                    gblShowErrorImage,
+                                    "<div style= 'padding:5px;height:60px; width: " & Parent.Width & "px;  text-align:center; font-size:4em; font-family: Trebuchet MS; font-weight:300'>☹️</div>",
+                                    ""
+                                )
+                              PaddingBottom: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Visible: |-
+                                =If(
+                                    gblShowErrorImage,
+                                    true,
+                                    false
+                                )
+                              Width: =650
+                        - Label6_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              Text: =IsMatch(txtPassword.Text, "(?!^[0-9]\*$)(?!^[a-zA-Z]\*$)(?!^[@%]\*$)([a-zA-Z0-9@%]{8,25})")
+                              Visible: =false
+                              X: =588
+                              Y: =232
+                        - Label20_9:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =15
+                              Text: ="Full Name"
+                              Width: =550
+                        - txtFullName:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: |-
+                                =/*If(
+                                    locPasswordError And IsBlank(txtFullName.Text),
+                                    Color.Red,
+                                    If(
+                                        gblBlankEntry And locPasswordError = false And IsBlank(txtFullName.Text),
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )*/
+                                If(
+                                    gblBlankEntry And locPasswordError = false And IsBlank(txtFullName.Text),
+                                    Color.Red,
+                                    RGBA(
+                                        99,
+                                        139,
+                                        44,
+                                        1
+                                    )
+                                )
+                              BorderThickness: =1
+                              Color: =RGBA(113, 111, 110, 1)
+                              Default: =
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =50
+                              HoverBorderColor: |-
+                                =If(
+                                    locPasswordError And IsBlank(txtFullName.Text),
+                                    Color.Red,
+                                    If(
+                                        gblBlankEntry And locPasswordError = false,// And IsBlank(txtFullName.Text),
+                                        Color.Red,
+                                        Self.BorderColor
+                                    )
+                                )
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinWidth: =50
+                              PressedBorderColor: |-
+                                =If(
+                                    locPasswordError And IsBlank(txtFullName.Text),
+                                    Color.Red,
+                                    If(
+                                        gblBlankEntry And locPasswordError = false And IsBlank(txtFullName.Text),
+                                        Color.Red,
+                                        Self.BorderColor
+                                    )
+                                )
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              Size: =11.5
+                              Width: =550
+                        - Label20_5:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =15
+                              Text: ="Username"
+                              Width: =550
+                        - txtUsername:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: |-
+                                =If(
+                                    gblBlankEntry And locPasswordError = false And IsBlank(txtUsername.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameUsed,
+                                        Color.Red,
+                                        RGBA(
+                                            99,
+                                            139,
+                                            44,
+                                            1
+                                        )
+                                    )
+                                )
+                              BorderThickness: =1
+                              Color: =RGBA(113, 111, 110, 1)
+                              Default: =""
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =50
+                              HoverBorderColor: |-
+                                =If(
+                                    locPasswordError And IsBlank(txtUsername.Text),
+                                    Color.Red,
+                                    If(
+                                        gblBlankEntry And locPasswordError = false And IsBlank(txtUsername.Text),
+                                        Color.Red,
+                                        Self.BorderColor
+                                    )
+                                )
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinWidth: =50
+                              PressedBorderColor: |-
+                                =If(
+                                    locPasswordError And IsBlank(txtUsername.Text),
+                                    Color.Red,
+                                    If(
+                                        gblBlankEntry And locPasswordError = false And IsBlank(txtUsername.Text),
+                                        Color.Red,
+                                        Self.BorderColor
+                                    )
+                                )
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              Size: =11.5
+                              Width: =550
+                        - Label20_3:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =15
+                              Text: ="Email Address"
+                              Width: =550
+                        - txtEmailAddress:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: |-
+                                =/*If(
+                                    gblInvalidEmail And IsBlank(txtEmailAddress.Text),
+                                    Color.Red,
+                                    If(
+                                        gblBlankEntry And locPasswordError = false || gblInvalidEmail || locEmailUsed,
+                                        Color.Red,
+                                        RGBA(
+                                            99,
+                                            139,
+                                            44,
+                                            1
+                                        )
+                                    )
+                                )*/
+                                If(
+                                    gblBlankEntry And locPasswordError = false || gblInvalidEmail || locEmailUsed,
+                                    Color.Red,
+                                    RGBA(
+                                        99,
+                                        139,
+                                        44,
+                                        1
+                                    )
+                                )
+                              BorderThickness: =1
+                              Color: =RGBA(113, 111, 110, 1)
+                              Default: =
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =50
+                              HoverBorderColor: |-
+                                =If(
+                                    locPasswordError And IsBlank(txtEmailAddress.Text),
+                                    Color.Red,
+                                    If(
+                                        gblBlankEntry And locPasswordError = false And IsBlank(txtEmailAddress.Text),
+                                        Color.Red,
+                                        Self.BorderColor
+                                    )
+                                )
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinWidth: =50
+                              PressedBorderColor: |-
+                                =If(
+                                    locPasswordError And IsBlank(txtEmailAddress.Text),
+                                    Color.Red,
+                                    If(
+                                        gblBlankEntry And locPasswordError = false And IsBlank(txtEmailAddress.Text),
+                                        Color.Red,
+                                        Self.BorderColor
+                                    )
+                                )
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              Size: =11.5
+                              Width: =550
+                        - Label20_2:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =15
+                              Text: ="Password"
+                              Width: =550
+                        - Container14_7:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =55
+                              LayoutMinHeight: =55
+                              LayoutMinWidth: =600
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Width: =555
+                            Children:
+                              - txtPassword:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: |-
+                                      =If(
+                                          locPasswordError,
+                                          Color.Red,
+                                          If(
+                                              locPasswordError = false And gblPasswordsDontMatch,
+                                              Color.Red,
+                                              RGBA(
+                                                  99,
+                                                  139,
+                                                  44,
+                                                  1
+                                              )
+                                          )
+                                      )
+                                    BorderThickness: =1
+                                    Color: =RGBA(113, 111, 110, 1)
+                                    Default: =""
+                                    DisabledBorderColor: |-
+                                      =//If(locPasswordError, Color.Red, RGBA(219, 219, 219, 1))
+                                      If(
+                                          locPasswordError,
+                                          Color.Red,
+                                          If(
+                                              gblBlankEntry And locPasswordError = false And IsBlank(txtPassword.Text),
+                                              Color.Red,
+                                              RGBA(
+                                                  219,
+                                                  219,
+                                                  219,
+                                                  1
+                                              )
+                                          )
+                                      )
+                                    DisabledColor: =RGBA(50, 49, 48, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: |-
+                                      =DisplayMode.Edit
+                                      /*If(
+                                          IsBlank(FullName.Text) || IsBlank(Username.Text) || IsBlank(SecurityQuestion.Text) || IsBlank(Answer.Text),
+                                          DisplayMode.Disabled,
+                                          DisplayMode.Edit
+                                      )*/
+                                    FocusedBorderThickness: =2
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =50
+                                    HoverBorderColor: |-
+                                      =//If(locPasswordError, Color.Red, RGBA(219, 219, 219, 1))
+                                      If(
+                                          locPasswordError,
+                                          Color.Red,
+                                          If(
+                                              gblBlankEntry And locPasswordError = false And IsBlank(txtPassword.Text),
+                                              Color.Red,
+                                              Self.BorderColor
+                                          )
+                                      )
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    Mode: =If(EditModePassword, TextMode.SingleLine, TextMode.Password)
+                                    PressedBorderColor: "=//If(locPasswordError, Color.Red, RGBA(219, 219, 219, 1))\r\nIf(\r\n    locPasswordError,\r\n    Color.Red,\r\n    If(\r\n        gblBlankEntry And locPasswordError = false And IsBlank(txtPassword.Text),\r\n        Color.Red,\r\n        Self.BorderColor\r\n         \r\n    )\r\n)"
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    Size: =11.5
+                                    Width: =550
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =Parent.Height/2 - Self.Height/2
+                              - Image7_4:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(219, 219, 219, 1)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =1
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =55
+                                    HoverBorderColor: =RGBA(219, 219, 219, 1)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Image: |-
+                                      ="data:image/svg+xml;utf8, " & EncodeUrl(
+                                          Substitute(
+                                              LookUp(
+                                                  CustomIcon2,
+                                                  IconName = "Eye"
+                                              ).IconData,
+                                              "currentColor",
+                                              IconColor
+                                          )
+                                      )
+                                    ImagePosition: =ImagePosition.Center
+                                    OnSelect: =Set(EditModePassword, !EditModePassword)
+                                    PaddingBottom: =5
+                                    PaddingLeft: =5
+                                    PaddingRight: =5
+                                    PaddingTop: =5
+                                    PressedBorderColor: =RGBA(219, 219, 219, 1)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    RadiusBottomLeft: =5
+                                    RadiusBottomRight: =5
+                                    RadiusTopLeft: =5
+                                    RadiusTopRight: =5
+                                    Width: =52
+                                    X: =500
+                                    Y: =1
+                              - Label3_2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(202, 202, 202, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =55
+                                    Size: =11
+                                    Text: =If(Len(txtPassword.Text) > 14, "", 14 - Len(txtPassword.Text))
+                                    Width: =50
+                                    X: =470
+                                    Y: =1
+                        - Label21_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =15
+                              Text: '="Confirm Password" '
+                              Width: =550
+                        - Container14:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =55
+                              LayoutMinHeight: =55
+                              LayoutMinWidth: =600
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Width: =555
+                            Children:
+                              - txtConfirmPassword:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: |-
+                                      =//If(locPasswordError, Color.Red, RGBA(219, 219, 219, 1))
+                                      If(
+                                          locPasswordError,
+                                          Color.Red,
+                                          If(
+                                              locPasswordError = false And gblPasswordsDontMatch,
+                                              Color.Red,
+                                              RGBA(
+                                                  99,
+                                                  139,
+                                                  44,
+                                                  1
+                                              )
+                                          )
+                                      )
+                                    BorderThickness: =1
+                                    Color: =RGBA(113, 111, 110, 1)
+                                    Default: =""
+                                    DisabledBorderColor: |-
+                                      =//If(locPasswordError, Color.Red, RGBA(219, 219, 219, 1))
+                                      If(
+                                          locPasswordError,
+                                          Color.Red,
+                                          If(
+                                              gblBlankEntry And locPasswordError = false And IsBlank(txtConfirmPassword.Text),
+                                              Color.Red,
+                                              RGBA(
+                                                  219,
+                                                  219,
+                                                  219,
+                                                  1
+                                              )
+                                          )
+                                      )
+                                    DisabledColor: =RGBA(50, 49, 48, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: |-
+                                      =DisplayMode.Edit
+                                      /*If(
+                                          IsBlank(FullName.Text) || IsBlank(Username.Text) || IsBlank(SecurityQuestion.Text) || IsBlank(Answer.Text),
+                                          DisplayMode.Disabled,
+                                          DisplayMode.Edit
+                                      )*/
+                                    FocusedBorderThickness: =2
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =50
+                                    HoverBorderColor: |-
+                                      =//If(locPasswordError, Color.Red, RGBA(219, 219, 219, 1))
+                                      If(
+                                          locPasswordError,
+                                          Color.Red,
+                                          If(
+                                              gblBlankEntry And locPasswordError = false And IsBlank(txtConfirmPassword.Text),
+                                              Color.Red,
+                                              Self.BorderColor
+                                          )
+                                      )
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    Mode: =If(EditModeConfirmPassword, TextMode.SingleLine, TextMode.Password)
+                                    PressedBorderColor: "=//If(locPasswordError, Color.Red, RGBA(219, 219, 219, 1))\r\nIf(\r\n    locPasswordError,\r\n    Color.Red,\r\n    If(\r\n        gblBlankEntry And locPasswordError = false And IsBlank(txtConfirmPassword.Text),\r\n        Color.Red,\r\n        Self.BorderColor\r\n         \r\n    )\r\n)"
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    Size: =11.5
+                                    Width: =550
+                                    X: =Parent.Width/2 - Self.Width/2
+                                    Y: =Parent.Height/2 - Self.Height/2
+                              - Image7_3:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(219, 219, 219, 1)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =1
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =55
+                                    HoverBorderColor: =RGBA(219, 219, 219, 1)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Image: |-
+                                      ="data:image/svg+xml;utf8, " & EncodeUrl(
+                                          Substitute(
+                                              LookUp(
+                                                  CustomIcon2,
+                                                  IconName = "Eye"
+                                              ).IconData,
+                                              "currentColor",
+                                              IconColor
+                                          )
+                                      )
+                                    ImagePosition: =ImagePosition.Center
+                                    OnSelect: =Set(EditModeConfirmPassword, !EditModeConfirmPassword)
+                                    PaddingBottom: =5
+                                    PaddingLeft: =5
+                                    PaddingRight: =5
+                                    PaddingTop: =5
+                                    PressedBorderColor: =RGBA(219, 219, 219, 1)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    RadiusBottomLeft: =5
+                                    RadiusBottomRight: =5
+                                    RadiusTopLeft: =5
+                                    RadiusTopRight: =5
+                                    Width: =49
+                                    X: =500
+                                    Y: =1
+                              - Label3_3:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(202, 202, 202, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =55
+                                    Size: =11
+                                    Text: =If(Len(txtConfirmPassword.Text) > 14, "", 14 - Len(txtConfirmPassword.Text))
+                                    Width: =50
+                                    X: =470
+                                    Y: =1
+                        - btnContinueRegistration:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =ColorFade(Self.Fill, -10%)
+                              DisabledColor: =RGBA(255, 255, 255, 1)
+                              DisabledFill: =ColorFade(Self.Fill, 20%)
+                              DisplayMode: |
+                                =If(
+                                    Len(txtPassword.Text) < 14,
+                                    DisplayMode.Disabled,
+                                        If(
+                                            IsBlank(txtFullName.Text) || IsBlank(txtUsername.Text) || IsBlank(txtPassword.Text) || IsBlank(txtEmailAddress.Text) || IsBlank(txtConfirmPassword.Text),
+                                            DisplayMode.Disabled,
+                                            DisplayMode.Edit
+                                        )
+                                    )
+                              Fill: =RGBA(15, 108, 189, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =55
+                              HoverBorderColor: =ColorFade(Self.Fill, -10%)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =ColorFade(Self.Fill, -10%)
+                              OnSelect: |-
+                                =Set(gblTimeCodeWasSent, Now()) ;
+
+                                Set(gblNewUserEmail, txtEmailAddress.Text) ;
+                                Set(gblNewUserFullName, txtFullName.Text) ;
+                                Set(gblRegistrationCodeSent, RandBetween(111111, 999999)) ;
+
+                                // Vérification d'utilisateur et e-mail existant
+                                UpdateContext({ locUsernameUsed: !IsBlank(LookUp(LoginDemo, UserName = txtUsername.Text)) }) ;
+                                UpdateContext({ locEmailUsed: !IsBlank(LookUp(LoginDemo, EmailAddress = txtEmailAddress.Text)) }) ;
+
+                                // Champs vides
+                                Set(gblBlankEntry,
+                                    IsBlank(txtFullName.Text) || IsBlank(txtUsername.Text) || IsBlank(txtPassword.Text) || 
+                                    IsBlank(txtConfirmPassword.Text) || IsBlank(txtEmailAddress.Text)
+                                ) ;
+
+                                // Mots de passe identiques
+                                Set(gblPasswordsDontMatch, txtPassword.Text <> txtConfirmPassword.Text) ;
+
+                                // Validation de l’e-mail
+                                Set(
+                                    gblInvalidEmail,
+                                    !IsMatch(
+                                        txtEmailAddress.Text,
+                                        "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                    )
+                                ) ;
+
+                                // Validation complexité du mot de passe
+                                ClearCollect(colCheckNumbers, ForAll(Split(txtPassword.Text, ""), If(IsMatch(Value, "[0-9]"), Value))) ;
+                                ClearCollect(colCheckCapitalLetters, ForAll(Split(txtPassword.Text, ""), If(IsMatch(Value, "[A-Z]"), Value))) ;
+                                ClearCollect(colCheckSmallLetters, ForAll(Split(txtPassword.Text, ""), If(IsMatch(Value, "[a-z]"), Value))) ;
+                                ClearCollect(colCheckSymbol, ForAll(Split(txtPassword.Text, ""), If(IsMatch(Value, "[@#\$%&?!><]"), Value))) ;
+
+                                UpdateContext({
+                                    locPasswordError: CountRows(colCheckNumbers) = 0 || CountRows(colCheckCapitalLetters) = 0 ||
+                                                      CountRows(colCheckSmallLetters) = 0 || CountRows(colCheckSymbol) = 0
+                                }) ;
+
+                                // Notifications
+                                If(locPasswordError,
+                                    Notify("Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un symbole", NotificationType.Error, 3000);
+                                    Set(gblShowErrorImage, true)
+                                );
+
+                                If(gblPasswordsDontMatch,
+                                    Notify("Les mots de passe ne correspondent pas", NotificationType.Error, 3000);
+                                    Set(gblShowErrorImage, true)
+                                );
+
+                                If(gblInvalidEmail,
+                                    Notify("Format de l'adresse e-mail invalide", NotificationType.Error, 3000);
+                                    Set(gblShowErrorImage, true)
+                                );
+
+                                If(locEmailUsed,
+                                    Notify("Adresse e-mail déjà utilisée", NotificationType.Error, 3000);
+                                    Set(gblShowErrorImage, true)
+                                );
+
+                                If(gblBlankEntry,
+                                    Notify("Tous les champs sont obligatoires", NotificationType.Error, 3000);
+                                    Set(gblShowErrorImage, true)
+                                );
+
+                                If(locUsernameUsed,
+                                    Notify("Nom d'utilisateur déjà utilisé", NotificationType.Error, 3000);
+                                    Set(gblShowErrorImage, true)
+                                );
+
+                                // Enregistrement si tout est valide
+                                If(
+                                    !locPasswordError && !locUsernameUsed && !gblInvalidEmail && !locEmailUsed &&
+                                    !gblPasswordsDontMatch && !gblBlankEntry,
+
+                                    ClearCollect(
+                                        colNewUser,
+                                        {
+                                            Status: "colNewUserRecord",
+                                            Name: txtFullName.Text,
+                                            UserName: txtUsername.Text,
+                                            Email: txtEmailAddress.Text,
+                                            Password: txtConfirmPassword.Text
+                                        }
+                                    );
+
+                                    IfError(
+                                        Office365Outlook.SendEmailV2(
+                                            gblNewUserEmail,
+                                            "Finalisez votre inscription",
+                                            "<div style='background-color: #f5f5f5; width: 650px; height: 400px; border: 2px solid black; padding-bottom: 30px; font-weight:600; color: #0c5c00'>
+                                                <div style='background-color: #638b2c ;  height: 60px; text-align: center; color: #f5f5f5; font-weight: 900; padding: 15px;font-size:2em; font-family: Trebuchet MS'>
+                                                    INSCRIPTION À L’APPLICATION
+                                                </div>
+                                                <div style='font-size:2em; font-family: Trebuchet MS; padding: 20px; background-color:#f5f5f5; color: #057f3f'><br> Bonjour " & gblNewUserFullName & ",<br><br>
+                                                Veuillez finaliser votre inscription en utilisant le code ci-dessous :
+                                                <div style='background-color: #f5f5f5; height: 60px; text-align: center; color: #057f3f; font-weight: 900; padding: 15px;font-size:2em; font-family: Trebuchet MS'>
+                                                    " & gblRegistrationCodeSent & "
+                                                </div>
+                                                </div>
+                                            </div>",
+                                            {
+                                                Importance: "Normal",
+                                                IsHtml: true
+                                            }
+                                        ),
+                                        Notify("L'envoi de l'e-mail a échoué. Vérifiez l'adresse ou réessayez.", NotificationType.Error, 4000),
+                                        Notify("Un dernier pas ! Entrez le code envoyé par e-mail pour finaliser l'inscription.", NotificationType.Information, 4000);
+                                        Navigate('Confirm Registration', Transition.Push)
+                                    )
+                                );
+                              PressedBorderColor: =ColorFade(Self.Fill, -10%)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =ColorFade(Self.Fill, -20%)
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Size: =16
+                              Text: ="Continue"
+                              Tooltip: |-
+                                =If(
+                                    Len(txtConfirmPassword.Text) < 14 And gblBlankEntry,
+                                    "All fields are required"
+                                )
+                              Width: =550
+                              X: =72
+                              Y: =506
+                  - Container13_1:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =8
+                        Visible: =If(Gallery8.Selected.Name = "Forgot Password", true, false)
+                        Width: =650
+                      Children:
+                        - HtmlText1_11:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =70
+                              HtmlText: |-
+                                ="<div style= 'padding:5px;height:45px; width: "&Parent.Width &"px;  text-align:center; font-size:3em; font-family: Trebuchet MS; font-weight:900;color:white;'>Forgot Password</div>"
+                              PaddingBottom: =0
+                              Width: =650
+                        - Label20_11:
+                            Control: Label@2.5.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =15
+                              Text: ="Email Address"
+                              Width: =550
+                        - txtRecoveryEmailAddress:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(txtRecoveryEmailAddress.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              BorderThickness: =1
+                              Color: =RGBA(113, 111, 110, 1)
+                              Default: =""
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =50
+                              HoverBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(txtRecoveryEmailAddress.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinWidth: =50
+                              PressedBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(txtRecoveryEmailAddress.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              Size: =11
+                              Width: =550
+                        - Label20_12:
+                            Control: Label@2.5.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Verdana
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =11
+                              Text: ="Full Name"
+                              Visible: =false
+                              Width: =600
+                        - RecoveryFullName:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryFullName.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              BorderThickness: =1
+                              Color: =RGBA(113, 111, 110, 1)
+                              Default: |-
+                                =If(
+                                    IsBlank(
+                                        LookUp(
+                                            LoginDemo,
+                                            UserName = txtRecoveryEmailAddress.Text || EmailAddress = txtRecoveryEmailAddress.Text
+                                        ).Titre
+                                    ),
+                                    "",
+                                    (LookUp(
+                                        LoginDemo,
+                                        UserName = txtRecoveryEmailAddress.Text ||  txtRecoveryEmailAddress.Text
+                                    ).Titre)
+                                )
+                              DisabledBorderColor: =RGBA(99, 139, 44, 1)
+                              DisabledColor: =Self.Color
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =DisplayMode.Disabled
+                              FocusedBorderThickness: =2
+                              Font: =Font.Verdana
+                              Height: =50
+                              HoverBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryFullName.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinWidth: =50
+                              PressedBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryFullName.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              Size: =11
+                              Visible: =false
+                              Width: =600
+                        - Label20_13:
+                            Control: Label@2.5.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Verdana
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =11
+                              Text: ="Security Question"
+                              Visible: =false
+                              Width: =600
+                        - RecoveryQstn:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryQstn.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              BorderThickness: =1
+                              Color: =RGBA(113, 111, 110, 1)
+                              Default: |-
+                                =
+
+                                  LoginDemo;
+                                 UserName = txtRecoveryEmailAddress.Text || EmailAddress = txtRecoveryEmailAddress.Text;
+                                    (LookUp(
+                                        LoginDemo,
+                                        UserName = txtRecoveryEmailAddress.Text || EmailAddress = txtRecoveryEmailAddress.Text)
+                                )
+                              DisabledBorderColor: =RGBA(99, 139, 44, 1)
+                              DisabledColor: =Self.Color
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =DisplayMode.Disabled
+                              FocusedBorderThickness: =2
+                              Font: =Font.Verdana
+                              Height: =50
+                              HoverBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryQstn.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinWidth: =50
+                              PressedBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryQstn.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              Size: =11
+                              Visible: =false
+                              Width: =600
+                        - Label20_14:
+                            Control: Label@2.5.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Verdana
+                              Height: =20
+                              LayoutMinWidth: =50
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Size: =11
+                              Text: ="Answer"
+                              Visible: =false
+                              Width: =600
+                        - RecoveryAnswer:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryAnswer.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              BorderThickness: =1
+                              Color: =RGBA(113, 111, 110, 1)
+                              Default: =
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Open Sans'
+                              Height: =50
+                              HoverBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryAnswer.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinWidth: =50
+                              PressedBorderColor: |-
+                                =If(
+                                    locUsernameError And IsBlank(RecoveryAnswer.Text),
+                                    Color.Red,
+                                    If(
+                                        locUsernameError,
+                                        Color.Red,
+                                        RGBA(99, 139, 44, 1)
+                                    )
+                                )
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              Size: =11
+                              Visible: =false
+                              Width: =600
+                        - HtmlText1_15:
+                            Control: HtmlViewer@2.1.0
+                            Properties:
+                              DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =85
+                              HtmlText: |-
+                                =If(
+                                    gblShowErrorImage,
+                                    "<div style= 'padding:5px;height:60px; width: " & Parent.Width & "px;  text-align:center; font-size:4em; font-family: Trebuchet MS; font-weight:300'>☹️</div>",
+                                    ""
+                                )
+                              PaddingBottom: =0
+                              PaddingTop: =0
+                              Visible: =If(gblShowErrorImage, true, false)
+                              Width: =650
+                        - btnResetPassword:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =Self.Fill
+                              BorderStyle: =BorderStyle.None
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =ColorFade(Self.Fill, -10%)
+                              DisabledColor: =RGBA(255, 255, 255, 1)
+                              DisabledFill: =ColorFade(Self.Fill, 20%)
+                              DisplayMode: |-
+                                =If(
+                                    IsBlank(txtRecoveryEmailAddress.Text),
+                                    DisplayMode.Disabled,
+                                    DisplayMode.Edit
+                                )
+                              Fill: =RGBA(15, 108, 189, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =55
+                              HoverBorderColor: =ColorFade(Self.Fill, -10%)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =ColorFade(Self.Fill, -10%)
+                              OnSelect: "=Set(\n    gblIDUserToBeRecovered,\n    LookUp(\n        LoginDemo,\n        EmailAddress = txtRecoveryEmailAddress.Text\n    ).ID\n);\nIf(\n    IsBlank(\n        LookUp(\n            LoginDemo,\n            EmailAddress = txtRecoveryEmailAddress.Text\n        ).EmailAddress\n    ),\n    false;\n    Notify(\n        \"Wrong email address. Try again\",\n        NotificationType.Error,\n        3000\n    ),\n    Navigate(\n        'Reset Password',\n        Transition.Pop\n    );\n    Set(\n        gblNameUserToBeRecovered,\n        LookUp(\n            LoginDemo,\n            EmailAddress = txtRecoveryEmailAddress.Text\n        ).Titre\n    );\n    Set(\n        gblTimeCodeWasSent,\n        Now()\n    );\n    Set(\n        gblRecoveryCodeSent,\n        RandBetween(\n            111111,\n            999999\n        )\n    );\n    Gmail.SendEmailV2(\n        txtRecoveryEmailAddress.Text,\n        {\n            Subject: \"Password Reset\",\n            Body: \"<div style='background-color: #f5f5f5; width: 650px; height: 400px; border: 2px solid black; padding-bottom: 30px; font-weight:600; color: #0c5c00'>\n    <div style='background-color: #638b2c ;  height: 60px; text-align: center; color: #f5f5f5; font-weight: 900; padding: 15px;font-size:2em; font-family: Trebuchet MS'>\n      RESET PASSWORD\n    </div>\n    <div style='font-size:2em; font-family: Trebuchet MS; padding: 20px; background-color:#f5f5f5; color: #057f3f'><br> Hello \" & gblNameUserToBeRecovered & \",<br><br> Please complete your account registration using the code below. \n     <div style='background-color: #f5f5f5;  ; height: 60px; text-align: center; color: #057f3f; font-weight: 900; padding: 15px;font-size:2em; font-family: Trebuchet MS'>\n      \" & gblRecoveryCodeSent & \"\n    </div>\n</div>\n  </div>\",\n            Importance: \"Normal\"\n        }\n    );\n    Notify(\n        \"A code has been sent to your email\",\n        NotificationType.Information,\n        4000\n    );\n    \n)"
+                              PressedBorderColor: =ColorFade(Self.Fill, -10%)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =ColorFade(Self.Fill, -20%)
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Size: =16
+                              Text: ="Continue"
+                              Tooltip: =If(IsBlank(txtLoginPassword.Text) || IsBlank(txtLoginUsername.Text), "All fields are required")
+                              Width: =550

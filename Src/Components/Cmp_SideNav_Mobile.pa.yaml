@@ -1,0 +1,174 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  Cmp_SideNav_Mobile:
+    DefinitionType: CanvasComponent
+    CustomProperties:
+      Color:
+        PropertyKind: Input
+        DisplayName: Color
+        Description: Property to hold colors
+        DataType: Color
+        Default: =RGBA(255, 255, 255, 1)
+      CurrentIndicatorColor:
+        PropertyKind: Input
+        DisplayName: CurrentIndicatorColor
+        Description: A custom property
+        DataType: Color
+        Default: =RGBA(252, 194, 27, 1)
+      Default:
+        PropertyKind: Input
+        DisplayName: Default
+        Description: A custom property
+        DataType: Text
+        Default: ="Book a Bus"
+      DisabledColor:
+        PropertyKind: Input
+        DisplayName: DisabledColor
+        Description: A custom property
+        DataType: Color
+        Default: =RGBA(89, 89, 89, 1)
+      HoverFill:
+        PropertyKind: Input
+        DisplayName: HoverFill
+        Description: A custom property
+        DataType: Color
+        Default: =RGBA(0, 0, 0, 1)
+      SelectedFill:
+        PropertyKind: Input
+        DisplayName: SelectedFill
+        Description: Property to hold menu selected colours
+        DataType: Color
+        Default: =RGBA(44,44, 44, 1)
+      SidebarItems:
+        PropertyKind: Input
+        DisplayName: SidebarItems
+        Description: Table to help menu items
+        DataType: Table
+        Default: |+
+          =Filter(
+              Table(
+                  {Value: "Home", Icon: mm, IconSelected: mm, Screen: Home1, RequiresAdmin: false},
+                  {Value: "Projects", Icon: projects, IconSelected: ImgHistorySelected, Screen: AI, RequiresAdmin: false},
+                  {Value: "LL by risk analysis", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Booking, RequiresAdmin: false},
+                  {Value: "Add LL by risk analysis", Icon: ImgCarDisabled, IconSelected: ImgCarSelected, Screen: Create, RequiresAdmin: true},
+                  {Value: "Processes", Icon: img1, IconSelected: ImgCreateSelected, Screen: proo, RequiresAdmin: false},
+                  {Value: "Fault catalog", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Bookingp, RequiresAdmin: false},
+                  {Value: "Add Lesson by process", Icon: addlesson, IconSelected: ImgCarSelected, Screen: Createp, RequiresAdmin: true}
+              ),
+              // La condition de filtrage :
+              !RequiresAdmin || (RequiresAdmin && !IsBlank(CurrentUser) && IsAdminUser)
+          )
+    Properties:
+      Fill: =RGBA(32, 32, 32, 1)
+      Height: =77
+      Width: =Max(App.Width, App.MinScreenWidth)
+    Children:
+      - Gallery2:
+          Control: Gallery@2.15.0
+          Variant: Horizontal
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Height: =77
+            Items: =Cmp_SideNav_Mobile.SidebarItems
+            TemplatePadding: =0
+            TemplateSize: =Parent.Width/4
+            Width: =Parent.Width
+          Children:
+            - Cmp_sideNav_Gallery_Indicator_Btn_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  DisabledFill: =Cmp_SideNav_Mobile.SelectedFill
+                  DisplayMode: =DisplayMode.Disabled
+                  Fill: =Cmp_SideNav_Mobile.CurrentIndicatorColor
+                  Font: =Font.'Open Sans'
+                  Height: =72
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Self.Fill
+                  PressedFill: =Self.Color
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Text: =
+                  Visible: =ThisItem.Value = Cmp_SideNav_Mobile.Default
+                  Width: =340
+            - Cmp_sideNav_Gallery_Title_2:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FontColor: =If(ThisItem.Value = Cmp_SideNav_Mobile.Default,Cmp_SideNav_Mobile.Color,Cmp_SideNav_Mobile.DisabledColor)
+                  Height: =25
+                  Size: =18
+                  Text: =ThisItem.Value
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =230
+                  X: =55
+                  Y: =22
+            - Cmp_sideNav_Gallery_Indicator_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  DisabledFill: =Cmp_SideNav_Mobile.CurrentIndicatorColor
+                  DisplayMode: =DisplayMode.Disabled
+                  Fill: =Cmp_SideNav_Mobile.CurrentIndicatorColor
+                  Font: =Font.'Open Sans'
+                  Height: =5
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Self.Fill
+                  PressedFill: =Self.Color
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Text: =
+                  Visible: =ThisItem.Value = Cmp_SideNav_Mobile.Default
+                  Width: =340
+                  Y: =72
+            - Cmp_sideNav_Gallery_Indicator_Hover_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  DisabledFill: =Cmp_SideNav_Mobile.SelectedFill
+                  Fill: =Color.Transparent
+                  Font: =Font.'Open Sans'
+                  Height: =74
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =RGBA(44, 44, 44, 20%)
+                  OnSelect: =Navigate(ThisItem.Screen)
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Cmp_SideNav_Mobile.Color
+                  PressedFill: =Color.Transparent
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Text: =
+                  Width: =340

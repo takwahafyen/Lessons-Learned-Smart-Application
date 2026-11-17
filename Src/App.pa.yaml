@@ -1,0 +1,134 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+App:
+  Properties:
+    Formulas: "=IsMobileLayout = Or(\n    App.ActiveScreen.Orientation = \"vertical\",\n    App.ActiveScreen.Size = ScreenSize.Small\n);\nIsTabletLayout = Or(\n    App.ActiveScreen.Orientation = \"vertical\",\n  \n    App.ActiveScreen.Size = ScreenSize.Medium\n);\nUX = {\n    Font: {\n        H1: If(\n            IsMobileLayout,\n            24,\n            28\n        ),\n        H2: If(\n            IsMobileLayout,\n            20,\n            24\n        ),\n        H3: If(\n            IsMobileLayout,\n            16,\n            20\n        ),\n        H4: If(\n            IsMobileLayout,\n            12,\n            16\n        ),\n        Large: If(\n            IsMobileLayout,\n            14,\n            16\n        ),\n        Normal: If(\n            IsMobileLayout,\n            10,\n            12\n        ),\n        Label: If(\n            IsMobileLayout,\n            14,\n            16\n        ),\n        Input: If(\n            IsMobileLayout,\n            10,\n            12\n        ),\n        Small: If(\n            IsMobileLayout,\n            8,\n            10\n        ),\n        Footer: {\n            FontSize: If(\n                IsMobileLayout,\n                8,\n                10\n            )\n        },\n        Header: {\n            FontSize: If(\n                IsMobileLayout,\n                20,\n                24\n            )\n        }\n    }\n};\n"
+    OnStart: |
+      =// Chargement des données
+      ClearCollect(BookingListCollection, 'Booking List');
+      ClearCollect(BookingCarCollection, 'Booking Cars List');
+      ClearCollect(BookingpListCollection, 'Booking pList');
+      ClearCollect(BookingpCarCollection, 'Booking pCars List');
+
+      // Menu latéral
+      Set(
+          ColSideBarMenu,
+          Filter(
+          Table(
+              {Value: "Home", Icon: mm, IconSelected: mm, Screen: Home1, RequiresAdmin: false},
+              {Value: "Projects", Icon: projects, IconSelected: ImgHistorySelected, Screen: AI, RequiresAdmin: false},
+              {Value: "LL by risk analysis", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Booking, RequiresAdmin: false},
+              {Value: "Add LL by risk analysis", Icon: ImgCarDisabled, IconSelected: ImgCarSelected, Screen: Create, RequiresAdmin: true},
+              {Value: "Processes", Icon: img1, IconSelected: ImgCreateSelected, Screen: proo, RequiresAdmin: false},
+              {Value: "Fault catalog", Icon: ImgBookingDisabled, IconSelected: ImgBookingSelected, Screen: Bookingp, RequiresAdmin: false},
+              {Value: "Add Lesson by process", Icon: addlesson, IconSelected: ImgCarSelected, Screen: Createp, RequiresAdmin: true}
+          ),
+          // La condition de filtrage :
+          !RequiresAdmin || (RequiresAdmin && !IsBlank(CurrentUser) && IsAdminUser)
+      )
+
+      );
+
+      // Mois courant
+      Set(CurrentMonthNumber, Month(Today()));
+
+      // Collection des mois
+      ClearCollect(
+          MonthsCollection,
+          Table(
+              {MonthNumber: 1, MonthName: "Janvier", IsCurrent: CurrentMonthNumber = 1},
+              {MonthNumber: 2, MonthName: "Février", IsCurrent: CurrentMonthNumber = 2},
+              {MonthNumber: 3, MonthName: "Mars", IsCurrent: CurrentMonthNumber = 3},
+              {MonthNumber: 4, MonthName: "Avril", IsCurrent: CurrentMonthNumber = 4},
+              {MonthNumber: 5, MonthName: "Mai", IsCurrent: CurrentMonthNumber = 5},
+              {MonthNumber: 6, MonthName: "Juin", IsCurrent: CurrentMonthNumber = 6},
+              {MonthNumber: 7, MonthName: "Juillet", IsCurrent: CurrentMonthNumber = 7},
+              {MonthNumber: 8, MonthName: "Août", IsCurrent: CurrentMonthNumber = 8},
+              {MonthNumber: 9, MonthName: "Septembre", IsCurrent: CurrentMonthNumber = 9},
+              {MonthNumber: 10, MonthName: "Octobre", IsCurrent: CurrentMonthNumber = 10},
+              {MonthNumber: 11, MonthName: "Novembre", IsCurrent: CurrentMonthNumber = 11},
+              {MonthNumber: 12, MonthName: "Décembre", IsCurrent: CurrentMonthNumber = 12}
+          )
+      );
+      // Liste des voitures disponibles
+      ClearCollect(
+          AvialableCars,
+          Table(
+              {Value: "Range Rover", Icon: ImgRange},
+              {Value: "Porsche", Icon: ImgPorshe},
+              {Value: "Mercedes", Icon: ImgBenz},
+              {Value: "Lexus", Icon: ImgLexus},
+              {Value: "Toyota", Icon: ImgToyota}
+          )
+      );
+
+      // Date sélectionnée
+      Set(SelectedDate, Today());
+      Set(SelectedMonth, Month(Today()));
+
+      // En-têtes des jours
+      ClearCollect(
+          DayHeaders,
+          ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"]
+      );
+
+      // Jours du calendrier
+      ClearCollect(
+          CalendarDays,
+          ForAll(
+              Sequence(
+                  Date(Year(Today()), SelectedMonth + 1, 1) - Date(Year(Today()), SelectedMonth, 1)
+              ),
+              {
+                  DayNumber: Value,
+                  DayDate: Date(Year(Today()), SelectedMonth, Value),
+                  DayName: Text(Date(Year(Today()), SelectedMonth, Value), "dddd"),
+                  IsToday: Date(Year(Today()), SelectedMonth, Value) = Today(),
+                  IsDisabled: Or(
+                      Date(Year(Today()), SelectedMonth, Value) < Today(),
+                      Weekday(Date(Year(Today()), SelectedMonth, Value)) = 1, // dimanche
+                      Weekday(Date(Year(Today()), SelectedMonth, Value)) = 7  // samedi
+                  )
+              }
+          )
+      );
+
+      // Jours vides avant le début du mois
+      ClearCollect(
+          CalendarWithBlanks,
+          ForAll(
+              Sequence(Weekday(Date(Year(Today()), SelectedMonth, 1), StartOfWeek.Sunday) - 1),
+              {
+                  DayNumber: Blank(),
+                  DayDate: Blank(),
+                  DayName: Blank(),
+                  IsToday: false,
+                  IsDisabled: true
+              }
+          )
+      );
+
+      // Fusion des jours vides + jours du calendrier
+      Collect(CalendarWithBlanks, CalendarDays);
+
+      // Icône personnalisée (œil)
+      ClearCollect(
+          CustomIcon2,
+          {
+              IconName: "Œil",
+              IconData: "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-eye' viewBox='0 0 16 16'>
+        <path d='M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z'/>
+        <path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/>
+      </svg>"
+          }
+      );
+
+      // Couleur de l'icône
+      Set(IconColor, "RGBA(179; 179; 179; 1)");
+    Theme: =PowerAppsTheme

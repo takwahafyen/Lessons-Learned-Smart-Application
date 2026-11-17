@@ -1,0 +1,68 @@
+{
+  "Components": [
+    {
+      "Name": "Cmp_SideNav",
+      "TemplateName": "3a24152032f143c6a62bd2fb8d27ad03",
+      "Description": "",
+      "AllowCustomization": true,
+      "IsWidget": false,
+      "AllowAccessToGlobals": false
+    },
+    {
+      "Name": "Cmp_SideNav_Mobile",
+      "TemplateName": "e7e680ae59ab4c7f8b6e51f0651d51ca",
+      "Description": "",
+      "AllowCustomization": true,
+      "IsWidget": false,
+      "AllowAccessToGlobals": false
+    },
+    {
+      "Name": "Cmp_Header",
+      "TemplateName": "57eb045144dc4deaa3cf6262ff52efae",
+      "Description": "",
+      "AllowCustomization": true,
+      "IsWidget": false,
+      "AllowAccessToGlobals": false
+    },
+    {
+      "Name": "Cmp_loader",
+      "TemplateName": "474dc2099be94d3c88a361616ce2c5cb",
+      "Description": "",
+      "AllowCustomization": true,
+      "IsWidget": false,
+      "AllowAccessToGlobals": false
+    },
+    {
+      "Name": "Cmp_Validation",
+      "TemplateName": "348f3d60032f4582a28687a7a67fde3e",
+      "Description": "",
+      "AllowCustomization": true,
+      "IsWidget": false,
+      "AllowAccessToGlobals": false
+    },
+    {
+      "Name": "Cmp_Search_Car",
+      "TemplateName": "ec5f94ddeeff4bed915c8160d25b1774",
+      "Description": "",
+      "AllowCustomization": true,
+      "IsWidget": false,
+      "AllowAccessToGlobals": false
+    },
+    {
+      "Name": "Cmp_Search_Confirmation",
+      "TemplateName": "25e93e431f804b6f9de876ed75452ee1",
+      "Description": "",
+      "AllowCustomization": true,
+      "IsWidget": false,
+      "AllowAccessToGlobals": false
+    },
+    {
+      "Name": "Cmp_Restrict_Users",
+      "TemplateName": "478a0083ceef4e829799b6547e8d1767",
+      "Description": "",
+      "AllowCustomization": true,
+      "IsWidget": false,
+      "AllowAccessToGlobals": false
+    }
+  ]
+}

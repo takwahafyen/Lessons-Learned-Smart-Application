@@ -1,0 +1,330 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Confirm Registration:
+    Properties:
+      Fill: =ColorFade( RGBA(22, 255, 89, 1), 90%)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - Image1:
+          Control: Image@2.2.3
+          Properties:
+            Height: =Parent.Height
+            Image: =aaa_1
+            ImagePosition: =ImagePosition.Tile
+            Width: =Parent.Width
+      - Container13_3:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =1
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(12, 59, 94, 1)
+            Height: =700
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =8
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Width: =600
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =Parent.Height/2 - Self.Height/2
+          Children:
+            - HtmlText1_18:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =75
+                  HtmlText: |-
+                    ="<div style= 'padding:5px;height:45px; width: "&Parent.Width &"px;  text-align:center; font-size:2em; font-family: Trebuchet MS; font-weight:900;color:white'>Enter Code</div>"
+                  PaddingBottom: =0
+                  Width: =Parent.Width
+            - txtRegistrationCode:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(13, 50, 61, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(113, 111, 110, 1)
+                  Default: =
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(161, 159, 157, 1)
+                  DisabledFill: =RGBA(242, 242, 241, 0)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Format: =TextFormat.Number
+                  Height: =50
+                  HoverBorderColor: =RGBA(99, 139, 44, 1)
+                  HoverColor: =RGBA(50, 49, 48, 1)
+                  HoverFill: =RGBA(255, 255, 255, 1)
+                  LayoutMinWidth: =50
+                  PressedBorderColor: =RGBA(99, 139, 44, 1)
+                  PressedColor: =RGBA(50, 49, 48, 1)
+                  PressedFill: =RGBA(255, 255, 255, 1)
+                  Size: =11
+                  Width: =500
+            - HtmlText1_19:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =100
+                  HtmlText: =
+                  PaddingBottom: =0
+                  PaddingTop: =0
+                  Width: =500
+            - btnConfirmRegistration:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =Self.Fill
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =ColorFade(Self.Fill, -10%)
+                  DisabledColor: =RGBA(255, 255, 255, 1)
+                  DisabledFill: =ColorFade(Self.Fill, 20%)
+                  DisplayMode: =If(Len(txtRegistrationCode.Text) < 6, DisplayMode.Disabled, DisplayMode.Edit)
+                  Fill: =RGBA(13, 50, 61, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =55
+                  HoverBorderColor: =ColorFade(Self.Fill, -10%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(Self.Fill, -10%)
+                  OnSelect: |-
+                    =Set(
+                        CodeExpired,
+                        If(
+                            DateDiff(
+                                gblTimeCodeWasSent,
+                                Now(),
+                                TimeUnit.Minutes
+                            ) > 5,
+                            true,
+                            false
+                        )
+                    );
+                    Set(
+                        CodeError,
+                        If(
+                            Value(txtRegistrationCode.Text) <> gblRegistrationCodeSent,
+                            true,
+                            false
+                        )
+                    );
+                    If(
+                        CodeExpired,
+                        false;
+                        Notify(
+                            "Code has expired. Click resend for another code",
+                            NotificationType.Error,
+                            4000
+                        ),
+                        If(
+                            CodeError,
+                            false;
+                            Notify(
+                                "Incorrect code. Try again",
+                                NotificationType.Error,
+                                4000
+                            ),
+                            If(
+                                CodeExpired = false And CodeError = false,
+                                ForAll(
+                                    colNewUser,
+                                    Patch(
+                                        LoginDemo,
+                                        Defaults(LoginDemo),
+                                        {
+                                            Titre: Name,
+                                            UserName: UserName,
+                                            EmailAddress: Email,
+                                            Password: Password
+                                        }
+                                    )
+                                );
+                                Navigate(
+                                    HomeScreen,
+                                    ScreenTransition.Fade
+                                );
+                                Reset(txtRegistrationCode)
+                            );
+                            Notify(
+                                "Registration successful. Please login",
+                                NotificationType.Information,
+                                3000
+                            )
+                        )
+                    );
+                    Reset(txtFullName);
+                    Reset(txtUsername);
+                    Reset(txtEmailAddress);
+                    Reset(txtPassword);
+                    Reset(txtConfirmPassword);
+                  PressedBorderColor: =ColorFade(Self.Fill, -10%)
+                  PressedColor: =RGBA(255, 255, 255, 1)
+                  PressedFill: =ColorFade(Self.Fill, -20%)
+                  RadiusBottomLeft: =5
+                  RadiusBottomRight: =5
+                  RadiusTopLeft: =5
+                  RadiusTopRight: =5
+                  Size: =12
+                  Text: ="Confirm"
+                  Tooltip: =If(IsBlank(txtLoginPassword.Text) || IsBlank(txtLoginUsername.Text), "All fields are required")
+                  Width: =500
+            - btnResendRegistrationCode:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =Self.Color
+                  BorderThickness: =1
+                  Color: =RGBA(13, 50, 61, 1)
+                  DisabledBorderColor: =ColorFade(Self.BorderColor, -10%)
+                  DisabledColor: =RGBA(15, 84, 140, 1)
+                  DisabledFill: =ColorFade(Self.Fill, 20%)
+                  DisplayMode: =//If(IsBlank(LoginPassword.Text) || IsBlank(LoginUsername.Text), DisplayMode.Disabled, DisplayMode.Edit)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  Height: =55
+                  HoverBorderColor: =ColorFade(Self.BorderColor, -10%)
+                  HoverColor: =RGBA(15, 84, 140, 1)
+                  HoverFill: =ColorFade(Self.Fill, -2%)
+                  OnSelect: |
+                    =// Enregistre l'heure d'envoi du code
+                    Set(
+                        gblTimeCodeWasSent,
+                        Now()
+                    );
+
+                    // Génère un code aléatoire à 6 chiffres
+                    Set(
+                        gblRegistrationCodeSent,
+                        RandBetween(111111, 999999)
+                    );
+
+                    // Envoie de l'e-mail via Outlook
+                    Office365Outlook.SendEmailV2(
+                        gblNewUserEmail,
+                        "Account Recovery Code",
+                        "<div style='background-color: #f5f5f5; width: 650px; height: 400px; border: 2px solid black; padding-bottom: 30px; font-weight:600; color: #0c5c00'>
+                            <div style='background-color: #638b2c ;  height: 60px; text-align: center; color: #f5f5f5; font-weight: 900; padding: 15px;font-size:2em; font-family: Trebuchet MS'>
+                                APPLICATION REGISTRATION
+                            </div>
+                            <div style='font-size:2em; font-family: Trebuchet MS; padding: 20px; background-color:#f5f5f5; color: #057f3f'>
+                                <br> Hello " & gblNewUserFullName & ",<br><br> Please complete your account registration using the code below. 
+                                <div style='background-color: #f5f5f5; height: 60px; text-align: center; color: #057f3f; font-weight: 900; padding: 15px; font-size:2em; font-family: Trebuchet MS'>
+                                    " & gblRegistrationCodeSent & "
+                                </div>
+                            </div>
+                        </div>",
+                        {
+                            Importance: "Normal",
+                            IsHtml: true
+                        }
+                    );
+
+                    // Notification utilisateur
+                    Notify(
+                        "A code has been sent to your email",
+                        NotificationType.Information,
+                        4000
+                    );
+                  PressedBorderColor: =ColorFade(Self.BorderColor, -10%)
+                  PressedColor: =RGBA(15, 84, 140, 1)
+                  PressedFill: =ColorFade(Self.Fill, -1%)
+                  RadiusBottomLeft: =5
+                  RadiusBottomRight: =5
+                  RadiusTopLeft: =5
+                  RadiusTopRight: =5
+                  Size: =12
+                  Text: ="Resend Code"
+                  Tooltip: =If(IsBlank(txtLoginPassword.Text) || IsBlank(txtLoginUsername.Text), "All fields are required")
+                  Width: =500
+            - btnResendRegistrationCode_1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =Self.Color
+                  BorderThickness: =1
+                  Color: =RGBA(13, 50, 61, 1)
+                  DisabledBorderColor: =ColorFade(Self.BorderColor, -10%)
+                  DisabledColor: =RGBA(255, 255, 255, 1)
+                  DisabledFill: =ColorFade(Self.Fill, 20%)
+                  DisplayMode: =//If(IsBlank(LoginPassword.Text) || IsBlank(LoginUsername.Text), DisplayMode.Disabled, DisplayMode.Edit)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  Height: =55
+                  HoverBorderColor: =ColorFade(Self.BorderColor, -10%)
+                  HoverColor: =RGBA(15, 84, 140, 1)
+                  HoverFill: =ColorFade(Self.Fill, -2%)
+                  OnSelect: =Navigate(HomeScreen, ScreenTransition.Fade)
+                  PressedBorderColor: =ColorFade(Self.BorderColor, -10%)
+                  PressedColor: =RGBA(15, 84, 140, 1)
+                  PressedFill: =ColorFade(Self.Fill, -1%)
+                  RadiusBottomLeft: =5
+                  RadiusBottomRight: =5
+                  RadiusTopLeft: =5
+                  RadiusTopRight: =5
+                  Size: =12
+                  Text: ="Home"
+                  Tooltip: =If(IsBlank(txtLoginPassword.Text) || IsBlank(txtLoginUsername.Text), "All fields are required")
+                  Width: =500
+      - Container2_1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.Semilight
+            Fill: =Color.Transparent
+            Height: =84
+            Width: =249
+            Y: =342
+          Children:
+            - Label1_5:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Fill: =RGBA(13, 50, 61, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingLeft: =10
+                  Size: =12
+                  Text: =App.ActiveScreen.Name
+                  Visible: =false
+                  Width: =249
+      - Label5_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(241, 244, 249, 1)
+            Font: =Font.'Open Sans'
+            Height: =78
+            Text: =gblRecoveryCodeSent
+            Visible: =false
+            Width: =240
+            X: =89
+            Y: =630
+      - Label5_2:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(241, 244, 249, 1)
+            Font: =Font.'Open Sans'
+            Height: =78
+            Text: =gblTimeCodeWasSent
+            Visible: =false
+            Width: =240
+            X: =89
+            Y: =499

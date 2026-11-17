@@ -1,0 +1,99 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Screen1:
+    Properties:
+      OnVisible: |+
+        =
+    Children:
+      - Video4:
+          Control: Video@2.4.2
+          Properties:
+            AutoStart: =true
+            DisplayMode: =DisplayMode.View
+            Height: =Parent.Height
+            Loop: =true
+            Media: =Video1ushall
+            OnStart: =true
+            Reset: |-
+              =
+              false
+            ShowControls: =false
+            Start: =true
+            Width: =Parent.Width
+      - Camera1:
+          Control: Camera@2.4.0
+          Properties:
+            Camera: =0
+            Height: =490
+            OnSelect: |+
+              =Collect(Photos, Camera1.Photo);
+              Notify("Photo capturée avec succès!", NotificationType.Success)
+            OnStream: =true
+            StreamRate: =30
+            Width: =550
+            X: =42
+            Y: =32
+      - ButtonCanvas3:
+          Control: Button@0.0.45
+          Properties:
+            Height: =72
+            OnSelect: |+
+              =UpdateContext({PhotoCapture: Camera1.Photo});
+              Notify("Photo capturée avec succès !", NotificationType.Success)
+            Text: ="Take photo"
+            Width: =136
+            X: =27
+            Y: =563
+      - ButtonCanvas3_1:
+          Control: Button@0.0.45
+          Properties:
+            Height: =72
+            OnSelect: |+
+              =Set(imageBase64, JSON(Camera1.Photo, JSONFormat.IncludeBinaryData));
+              Set(varResult, stage.Run(imageBase64));
+            Text: ="Analyse"
+            Width: =136
+            X: =404
+            Y: =566
+      - Image14:
+          Control: Image@2.2.3
+          Properties:
+            DisplayMode: =DisplayMode.View
+            Height: =490
+            Image: =PhotoCapture
+            Width: =482
+            X: =752
+      - TextCanvas5:
+          Control: Text@0.0.51
+          Properties:
+            Height: =27
+            Text: |+
+              ="Numéro d'erreur : " & ReponseIA.numero
+            Width: =383
+            X: =832
+            Y: =566
+      - TextCanvas5_3:
+          Control: Text@0.0.51
+          Properties:
+            Height: =27
+            Text: |+
+              ="Cause : " & ReponseIA.cause
+            Width: =383
+            X: =832
+            Y: =615
+      - TextCanvas5_4:
+          Control: Text@0.0.51
+          Properties:
+            Height: =27
+            Text: |+
+              ="Solution : " & ReponseIA.solution
+            Width: =383
+            X: =832
+            Y: =676

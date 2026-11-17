@@ -1,0 +1,143 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Home1:
+    Properties:
+      BackgroundImage: =homehome
+    Children:
+      - Image5:
+          Control: Image@2.2.3
+          Properties:
+            Fill: =RGBA(180, 214, 250, 1)
+            Height: =Parent.Height
+            Image: =homepp
+            ImagePosition: =ImagePosition.Fill
+            Width: =Parent.Width
+      - Icon2:
+          Control: Icon@0.0.7
+          Properties:
+            Height: =87
+            Icon: ="GridDots"
+            IconColor: =RGBA(255, 255, 255, 1)
+            Width: =127
+            X: =17
+      - Video1:
+          Control: Video@2.4.2
+          Properties:
+            AutoStart: =true
+            BorderColor: '=RGBA(0, 32, 96, 1) '
+            Fill: =RGBA(0, 0, 51, 1)
+            Height: =Max(Parent.Height, App.MinScreenHeight)
+            ImagePosition: =ImagePosition.Fit
+            Loop: =true
+            Media: ='fe92eed9-f110-4dd6-9367-fccd7e0678bb'
+            ShowControls: =false
+            Width: =Max(App.Width, App.MinScreenWidth)
+      - ConCreateBookingNextBtn_13:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 63, 76, 1)
+            DisabledFill: =Self.Fill
+            Fill: =RGBA(180, 214, 250, 1)
+            Font: =Font.Georgia
+            Height: =78
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =Self.Fill
+            OnSelect: =Navigate(Booking)
+            PressedFill: =Self.Fill
+            Size: =If(IsMobileLayout,10, 15)
+            Text: ="Let's Start !"
+            Width: =180
+            X: =866
+            Y: =591
+      - TextCanvas10:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =260
+            Size: =70
+            Text: ="Lessons Learned Smart Application "
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =1254
+            Wrap: =false
+            X: =112
+            Y: =207
+      - Cmp_SideNav_Mobile_1:
+          Control: CanvasComponent
+          ComponentName: Cmp_SideNav_Mobile
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            CurrentIndicatorColor: =RGBA(252, 194, 27, 1)
+            Default: ="Login"
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(12, 59, 94, 1)
+            Height: =82
+            HoverFill: =RGBA(0, 0, 0, 1)
+            SelectedFill: =RGBA(3, 18, 23, 1)
+            SidebarItems: "=Table(\r\n    {Value: \"Authentification Admin\", Icon:ImgCreateDisabled , IconSelected:ImgCreateSelected, Screen: HomeScreen},\r\n    {Value: \"Draxlmaier Group\", Icon:ImgCreateDisabled , IconSelected:ImgCreateSelected, Screen: info2},\r\n    {Value: \"Draxlmaier Tunisia\", Icon:ImgBookingDisabled, IconSelected:ImgBookingSelected, Screen: info4},\r\n    {Value: \"What we do?\", Icon: ImgCarDisabled, IconSelected:ImgCarSelected,Screen: info11}\r\n    )\r\n    "
+            Width: =Max(App.Width, App.MinScreenWidth)
+      - TextCanvas8:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =100
+            Size: =50
+            Text: ="SATE"
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =379
+            Wrap: =false
+            X: =175
+            Y: =577
+      - Image11:
+          Control: Image@2.2.3
+          Properties:
+            Height: =66
+            Image: ='111111111111111111-modified-removebg-preview'
+            Width: =55
+            X: =105
+            Y: =590
+      - TextCanvas8_1:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =100
+            Size: =50
+            Text: ="CIP Department"
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =379
+            Wrap: =false
+            X: =105
+            Y: =510
+      - TextCanvas8_2:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =69
+            Size: =30
+            Text: ="Continuously improving is our Character !"
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =604
+            Wrap: =false
+            X: =671
+            Y: =520
+      - Cmp_Header_Image_1:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Height: =101
+            Image: ='Design_sans_titre__8_-removebg-preview'
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =50
+            RadiusBottomRight: =50
+            RadiusTopLeft: =50
+            RadiusTopRight: =50
+            Width: =324
+            X: =13
+            Y: =92
