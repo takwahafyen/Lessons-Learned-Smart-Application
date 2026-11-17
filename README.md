@@ -109,19 +109,20 @@ Machine screens in factory environments suffer from glare and varying focal dist
 * **Morphological & Bilateral Preprocessing:** Removes high-frequency camera noise while preserving sharp font edges.
 * **Fallback Cascade:** Evaluates Adaptive Gaussian Thresholding and Otsu Binarization in parallel, selecting the token that satisfies the industrial regex with the highest confidence score (`conf > 25.0`).
 
-### 2. Machine Learning Model Architecture & Specifications (`src/model_predictor.py`)
+### 2. Exact Machine Learning Model Architecture & Specifications (`src/model_predictor.py`)
 
-* **Learning Paradigm:** **Supervised Machine Learning (NLP / Text Classification)**
-* **Model Type & Family:** Multi-class classification using an n-gram feature vectorizer coupled with a supervised scikit-learn classifier (e.g., Logistic Regression / Support Vector Classifier / Naive Bayes).
-* **Feature Extraction Pipeline:**
-  * **Input:** Raw detected error code (e.g., `"E-1024"` $\rightarrow$ normalized to `"E1024"`).
-  * **Vectorization:** `scikit-learn` Vectorizer (`CountVectorizer` / `TfidfVectorizer`) transforming alphanumeric character/sub-word tokens into sparse numerical vector embeddings.
-* **Target Prediction (Multi-Attribute Mapping):**
-  * The classifier maps the sparse token representation to an indexed knowledge base entry.
-  * The decoded output produces a structured tuple:
-    1. **Root Cause (`Cause Racine`)**: Underlying mechanical, electrical, or software fault origin.
-    2. **Corrective Action (`Solution / Procédure Standard`)**: Verified resolution procedure from factory *Lessons Learned* records.
-* **Inference Latency:** Ultra-low latency (< 15 ms per prediction), making it suited for edge factory deployment.
+Directly extracted from the trained model file (`erreur_model_numero.pkl`):
+
+* **Vectorization Technique:** **`TfidfVectorizer`** (`sklearn.feature_extraction.text`)
+  * Transforms the normalized alphanumeric error codes (e.g., `"E1024"`) into Term Frequency-Inverse Document Frequency (TF-IDF) feature vectors.
+* **Core Classification Algorithm:** **`RandomForestClassifier`** (`sklearn.ensemble`)
+  * An ensemble of Decision Trees that captures non-linear relationships between error code patterns and historical failure modes.
+* **Multi-Target Architecture:** **`MultiOutputClassifier`** (`sklearn.multioutput`)
+  * Extends the Random Forest to predict **two distinct target outputs simultaneously**:
+    1. **Target 1 (`Cause Racine`)**: The root failure cause.
+    2. **Target 2 (`Solution Standard`)**: The validated corrective action.
+* **Learning Paradigm:** **Supervised Multi-Output NLP Classification**.
+* **Inference Latency:** Sub-15 ms per prediction, ensuring instantaneous feedback on the shop-floor.
 
 ---
 
